@@ -14,7 +14,7 @@ const keys = {};
 // Load sound effects
 const coinSound = new Audio('./assets/coin-collect.mp3');
 
-const player = new Player(canvas.width / 2 - 16, canvas.height - 150, 32, 64, 5); // Adjust width and height to match sprite frame size
+const player = new Player(canvas.width / 2 - 16, canvas.height - 150, 75, 75, 5); // Adjust width and height to match sprite frame size
 const blocks = [
     new Block(0, canvas.height - 50, canvas.width * 2, 50),
     new Block(200, canvas.height - 150, 100, 20),

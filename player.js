@@ -11,11 +11,11 @@ export class Player {
         this.grounded = false;
         this.frameIndex = 0;
         this.tickCount = 0;
-        this.ticksPerFrame = 10;
-        this.numberOfFrames = 4;
+        this.ticksPerFrame = 5;
+        this.numberOfFrames = 8;
 
         this.image = new Image();
-        this.image.src = './assets/player-sprite.svg';
+        this.image.src = './assets/player.png';
         this.image.onload = () => {
             this.loaded = true;
         };
