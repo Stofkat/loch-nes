@@ -32,7 +32,6 @@ export class Coin {
             player.y < this.y + this.height &&
             player.y + player.height > this.y) {
             this.collected = true;
-            alert('Coin collected!');
             return true;
         }
         return false;

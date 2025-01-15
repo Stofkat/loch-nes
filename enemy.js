@@ -6,11 +6,24 @@ export class Enemy {
         this.height = height;
         this.speed = speed;
         this.dx = speed;
+
+        this.image = new Image();
+        this.image.src = './assets/loch-ness-monster.svg';
+        this.image.onload = () => {
+            this.loaded = true;
+        };
     }
 
     draw(ctx, scrollOffset) {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(this.x - scrollOffset, this.y, this.width, this.height);
+        if (this.loaded) {
+            ctx.drawImage(
+                this.image,
+                this.x - scrollOffset,
+                this.y,
+                this.width,
+                this.height
+            );
+        }
     }
 
     update(canvas, scrollOffset) {

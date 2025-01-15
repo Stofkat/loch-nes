@@ -11,6 +11,9 @@ const gravity = 0.5;
 const friction = 0.8;
 const keys = {};
 
+// Load sound effects
+const coinSound = new Audio('./assets/coin-collect.mp3');
+
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150, 32, 64, 5); // Adjust width and height to match sprite frame size
 const blocks = [
     new Block(0, canvas.height - 50, canvas.width * 2, 50),
@@ -19,7 +22,7 @@ const blocks = [
     new Block(600, canvas.height - 250, 100, 20)
 ];
 const enemies = [
-    new Enemy(500, canvas.height - 400, 50, 50, 2)
+    new Enemy(500, canvas.height - 400, 64, 64, 2) // Adjusted size to match the new sprite
 ];
 const waterBlocks = [];
 for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -90,6 +93,7 @@ function update(time) {
     coins.forEach(coin => {
         coin.draw(ctx, scrollOffset);
         if (coin.collect(player, scrollOffset)) {
+            coinSound.play();
             console.log('Coin collected!');
         }
     });
