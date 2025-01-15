@@ -2,6 +2,7 @@ import { Player } from './player.js';
 import { Block } from './block.js';
 import { Enemy } from './enemy.js';
 import { Water } from './water.js';
+import { Coin } from './coin.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -23,8 +24,13 @@ const enemies = [
 const waterBlocks = [];
 for (let i = 0; i < canvas.width * 2; i += 32) {
     waterBlocks.push(new Water(i, canvas.height - 40, 32, 20, 7, 0.02, '#0000FFDD')); // Higher and asymmetrical waves
-
 }
+const coins = [
+    new Coin(50, canvas.height - 70, 16, 16), // Coin on the ground
+    new Coin(250, canvas.height - 170, 16, 16), // Coin on the first platform
+    new Coin(450, canvas.height - 220, 16, 16), // Coin on the second platform
+    new Coin(650, canvas.height - 270, 16, 16) // Coin on the third platform
+];
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
@@ -77,6 +83,14 @@ function update(time) {
             player.y + player.height > enemy.y) {
             // Collision detected
             document.location.reload();
+        }
+    });
+
+    // Draw and update coins
+    coins.forEach(coin => {
+        coin.draw(ctx, scrollOffset);
+        if (coin.collect(player, scrollOffset)) {
+            console.log('Coin collected!');
         }
     });
 
