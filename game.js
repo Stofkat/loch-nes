@@ -22,6 +22,7 @@ const enemies = [
 ];
 
 let scrollOffset = 0;
+let scrollSpeed = 0;
 
 function update() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -31,10 +32,13 @@ function update() {
 
     // Scroll the world
     if (keys['ArrowRight']) {
-        scrollOffset += player.dx;
+        scrollSpeed = player.speed;
     } else if (keys['ArrowLeft']) {
-        scrollOffset += player.dx;
+        scrollSpeed = -player.speed;
+    } else {
+        scrollSpeed *= friction; // Apply friction to the scroll speed
     }
+    scrollOffset += scrollSpeed;
 
     // Draw and update blocks
     blocks.forEach(block => {

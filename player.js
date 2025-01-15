@@ -37,13 +37,13 @@ export class Player {
         }
     }
 
-    update(keys, gravity, friction, canvas) {
+    update(keys, gravity, canvas) {
         if (keys['ArrowRight']) {
             this.dx = this.speed;
         } else if (keys['ArrowLeft']) {
             this.dx = -this.speed;
         } else {
-            this.dx *= friction; // Apply friction when no keys are pressed
+            this.dx = 0; // No friction applied here
         }
 
         if (keys['ArrowUp'] && !this.jumping && this.grounded) {
