@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #87CEEB;
+}
+
+canvas {
+    border: 1px solid #000;
+    background: url('./background.svg') repeat-x;
+    animation: moveBackground 10s linear infinite;
+}
+
+@keyframes moveBackground {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: -800px 0;
+    }
+}
