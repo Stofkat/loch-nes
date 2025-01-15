@@ -6,8 +6,8 @@ export class Block {
         this.height = height;
     }
 
-    draw(ctx) {
+    draw(ctx, scrollOffset) {
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x - scrollOffset, this.y, this.width, this.height);
     }
 }

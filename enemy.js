@@ -8,14 +8,14 @@ export class Enemy {
         this.dx = speed;
     }
 
-    draw(ctx) {
+    draw(ctx, scrollOffset) {
         ctx.fillStyle = 'blue';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x - scrollOffset, this.y, this.width, this.height);
     }
 
-    update(canvas) {
+    update(canvas, scrollOffset) {
         this.x += this.dx;
-        if (this.x + this.width > canvas.width || this.x < 0) {
+        if (this.x + this.width > canvas.width + scrollOffset || this.x < scrollOffset) {
             this.dx *= -1;
         }
     }

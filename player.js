@@ -43,7 +43,7 @@ export class Player {
         } else if (keys['ArrowLeft']) {
             this.dx = -this.speed;
         } else {
-            this.dx = 0;
+            this.dx *= friction; // Apply friction when no keys are pressed
         }
 
         if (keys['ArrowUp'] && !this.jumping && this.grounded) {
@@ -53,7 +53,6 @@ export class Player {
         }
 
         this.dy += gravity;
-        this.x += this.dx;
         this.y += this.dy;
 
         if (this.y + this.height > canvas.height) {
