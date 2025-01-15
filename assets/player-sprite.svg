@@ -1,76 +1,77 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="256" height="64">
-  <!-- Frame 1: Initial pose -->
-  <rect x="0" y="0" width="32" height="64" fill="none" />
-  <!-- Head -->
-  <circle cx="16" cy="10" r="6" fill="#FFD700" />
-  <!-- Hair -->
-  <ellipse cx="16" cy="6" rx="6" ry="3" fill="#8B4513" />
+  <!-- Frame 1: Standing -->
+  <rect x="0" y="0" width="32" height="64" fill="#000000cc" />
+  <!-- Hat -->
+  <rect x="10" y="4" width="12" height="4" fill="#FF0000" />
+  <rect x="8" y="8" width="16" height="4" fill="#FF0000" />
+  <!-- Face -->
+  <rect x="10" y="12" width="12" height="12" fill="#FFDAB9" />
+  <!-- Eyes -->
+  <rect x="12" y="14" width="2" height="2" fill="#000000" />
+  <rect x="18" y="14" width="2" height="2" fill="#000000" />
   <!-- Body -->
-  <rect x="12" y="16" width="8" height="16" fill="#FF69B4" />
+  <rect x="12" y="24" width="8" height="12" fill="#0000FF" />
   <!-- Arms -->
-  <rect x="10" y="20" width="2" height="12" fill="#FFD700" transform="rotate(-45,11,20)" />
-  <rect x="20" y="20" width="2" height="12" fill="#FFD700" transform="rotate(45,21,20)" />
+  <rect x="8" y="24" width="4" height="8" fill="#FFDAB9" />
+  <rect x="20" y="24" width="4" height="8" fill="#FFDAB9" />
   <!-- Legs -->
-  <rect x="12" y="32" width="4" height="16" fill="#000000" transform="rotate(-30,14,32)" />
-  <rect x="16" y="32" width="4" height="16" fill="#000000" transform="rotate(30,18,32)" />
+  <rect x="12" y="36" width="4" height="12" fill="#964B00" />
+  <rect x="16" y="36" width="4" height="12" fill="#964B00" />
 
   <!-- Frame 2: Right leg forward -->
-  <rect x="32" y="0" width="32" height="64" fill="none" />
-  <!-- Head -->
-  <circle cx="48" cy="10" r="6" fill="#FFD700" />
-  <!-- Hair -->
-  <ellipse cx="48" cy="6" rx="6" ry="3" fill="#8B4513" />
+  <rect x="32" y="0" width="32" height="64" fill="#000000cc" />
+  <!-- Hat -->
+  <rect x="42" y="4" width="12" height="4" fill="#FF0000" />
+  <rect x="40" y="8" width="16" height="4" fill="#FF0000" />
+  <!-- Face -->
+  <rect x="42" y="12" width="12" height="12" fill="#FFDAB9" />
+  <!-- Eyes -->
+  <rect x="44" y="14" width="2" height="2" fill="#000000" />
+  <rect x="50" y="14" width="2" height="2" fill="#000000" />
   <!-- Body -->
-  <rect x="44" y="16" width="8" height="16" fill="#FF69B4" />
+  <rect x="44" y="24" width="8" height="12" fill="#0000FF" />
   <!-- Arms -->
-  <rect x="42" y="20" width="2" height="12" fill="#FFD700" transform="rotate(-30,43,20)" />
-  <rect x="52" y="20" width="2" height="12" fill="#FFD700" transform="rotate(30,53,20)" />
+  <rect x="40" y="24" width="4" height="8" fill="#FFDAB9" />
+  <rect x="52" y="20" width="4" height="8" fill="#FFDAB9" />
   <!-- Legs -->
-  <rect x="44" y="32" width="4" height="16" fill="#000000" transform="rotate(-45,46,32)" />
-  <rect x="48" y="32" width="4" height="12" fill="#000000" />
+  <rect x="44" y="36" width="4" height="10" fill="#964B00" />
+  <rect x="48" y="38" width="4" height="8" fill="#964B00" />
 
-  <!-- Frame 3: Neutral pose -->
-  <rect x="64" y="0" width="32" height="64" fill="none" />
-  <!-- Head -->
-  <circle cx="80" cy="10" r="6" fill="#FFD700" />
-  <!-- Hair -->
-  <ellipse cx="80" cy="6" rx="6" ry="3" fill="#8B4513" />
+  <!-- Frame 3: Neutral -->
+  <rect x="64" y="0" width="32" height="64" fill="#000000cc" />
+  <!-- Hat -->
+  <rect x="74" y="4" width="12" height="4" fill="#FF0000" />
+  <rect x="72" y="8" width="16" height="4" fill="#FF0000" />
+  <!-- Face -->
+  <rect x="74" y="12" width="12" height="12" fill="#FFDAB9" />
+  <!-- Eyes -->
+  <rect x="76" y="14" width="2" height="2" fill="#000000" />
+  <rect x="82" y="14" width="2" height="2" fill="#000000" />
   <!-- Body -->
-  <rect x="76" y="16" width="8" height="16" fill="#FF69B4" />
+  <rect x="76" y="24" width="8" height="12" fill="#0000FF" />
   <!-- Arms -->
-  <rect x="74" y="20" width="2" height="12" fill="#FFD700" transform="rotate(-15,75,20)" />
-  <rect x="84" y="20" width="2" height="12" fill="#FFD700" transform="rotate(15,85,20)" />
+  <rect x="72" y="24" width="4" height="8" fill="#FFDAB9" />
+  <rect x="84" y="24" width="4" height="8" fill="#FFDAB9" />
   <!-- Legs -->
-  <rect x="76" y="32" width="4" height="14" fill="#000000" />
-  <rect x="80" y="32" width="4" height="14" fill="#000000" />
+  <rect x="76" y="36" width="4" height="12" fill="#964B00" />
+  <rect x="80" y="36" width="4" height="12" fill="#964B00" />
 
   <!-- Frame 4: Left leg forward -->
-  <rect x="96" y="0" width="32" height="64" fill="none" />
-  <!-- Head -->
-  <circle cx="112" cy="10" r="6" fill="#FFD700" />
-  <!-- Hair -->
-  <ellipse cx="112" cy="6" rx="6" ry="3" fill="#8B4513" />
+  <rect x="96" y="0" width="32" height="64" fill="#000000ff" />
+  <!-- Hat -->
+  <rect x="106" y="4" width="12" height="4" fill="#FF0000" />
+  <rect x="104" y="8" width="16" height="4" fill="#FF0000" />
+  <!-- Face -->
+  <rect x="106" y="12" width="12" height="12" fill="#FFDAB9" />
+  <!-- Eyes -->
+  <rect x="108" y="14" width="2" height="2" fill="#000000" />
+  <rect x="114" y="14" width="2" height="2" fill="#000000" />
   <!-- Body -->
-  <rect x="108" y="16" width="8" height="16" fill="#FF69B4" />
+  <rect x="108" y="24" width="8" height="12" fill="#0000FF" />
   <!-- Arms -->
-  <rect x="106" y="20" width="2" height="12" fill="#FFD700" transform="rotate(-30,107,20)" />
-  <rect x="116" y="20" width="2" height="12" fill="#FFD700" transform="rotate(30,117,20)" />
+  <rect x="104" y="20" width="4" height="8" fill="#FFDAB9" />
+  <rect x="116" y="24" width="4" height="8" fill="#FFDAB9" />
   <!-- Legs -->
-  <rect x="108" y="32" width="4" height="12" fill="#000000" />
-  <rect x="112" y="32" width="4" height="16" fill="#000000" transform="rotate(45,114,32)" />
-
-  <!-- Frame 5: Recovery pose -->
-  <rect x="128" y="0" width="32" height="64" fill="none" />
-  <!-- Head -->
-  <circle cx="144" cy="10" r="6" fill="#FFD700" />
-  <!-- Hair -->
-  <ellipse cx="144" cy="6" rx="6" ry="3" fill="#8B4513" />
-  <!-- Body -->
-  <rect x="140" y="16" width="8" height="16" fill="#FF69B4" />
-  <!-- Arms -->
-  <rect x="138" y="20" width="2" height="12" fill="#FFD700" transform="rotate(-15,139,20)" />
-  <rect x="148" y="20" width="2" height="12" fill="#FFD700" transform="rotate(15,149,20)" />
-  <!-- Legs -->
-  <rect x="140" y="32" width="4" height="14" fill="#000000" />
-  <rect x="144" y="32" width="4" height="14" fill="#000000" />
+  <rect x="108" y="38" width="4" height="8" fill="#964B00" />
+  <rect x="112" y="36" width="4" height="10" fill="#964B00" />
 </svg>

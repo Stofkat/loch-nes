@@ -1,6 +1,7 @@
 import { Player } from './player.js';
 import { Block } from './block.js';
 import { Enemy } from './enemy.js';
+import { Water } from './water.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -17,14 +18,18 @@ const blocks = [
     new Block(600, canvas.height - 250, 100, 20)
 ];
 const enemies = [
-    new Enemy(50, canvas.height - 100, 50, 50, 2),
-    new Enemy(500, canvas.height - 150, 50, 50, 2)
+    new Enemy(500, canvas.height - 400, 50, 50, 2)
 ];
+const waterBlocks = [];
+for (let i = 0; i < canvas.width * 2; i += 32) {
+    waterBlocks.push(new Water(i, canvas.height - 40, 32, 20, 7, 0.02, '#0000FFDD')); // Higher and asymmetrical waves
+
+}
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
 
-function update() {
+function update(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Update player position
@@ -73,6 +78,11 @@ function update() {
             // Collision detected
             document.location.reload();
         }
+    });
+
+    // Draw water blocks
+    waterBlocks.forEach(water => {
+        water.draw(ctx, time);
     });
 
     // Draw player
