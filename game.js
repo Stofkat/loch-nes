@@ -7,6 +7,11 @@ import { Coin } from './coin.js';
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+const backgroundCanvas = document.createElement('canvas');
+const backgroundCtx = backgroundCanvas.getContext('2d');
+backgroundCanvas.width = canvas.width;
+backgroundCanvas.height = canvas.height;
+
 const gravity = 0.5;
 const friction = 0.8;
 const keys = {};
@@ -18,6 +23,9 @@ const musicLevel = new Audio('./sound/level.mp3');
 
 soundJump.volume = 0.5;
 
+// Load background image
+const backgroundImage = new Image();
+backgroundImage.src = './assets/background.png';
 
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 const blocks = [
@@ -45,9 +53,11 @@ const coins = [
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
+let backgroundScrollOffset = 0;
 
 function update(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 
     // Update player position
     player.update(keys, gravity, friction, canvas);
@@ -61,13 +71,25 @@ function update(time) {
         scrollSpeed *= friction; // Apply friction to the scroll speed
     }
     scrollOffset += scrollSpeed;
+    backgroundScrollOffset += scrollSpeed * 0.5; // Parallax effect
+
+    // Calculate scaling factor to maintain aspect ratio
+    const scaleFactor = canvas.height / backgroundImage.height;
+    const scaledWidth = backgroundImage.width * scaleFactor;
+
+    // Draw background with parallax effect
+    backgroundCtx.drawImage(backgroundImage, -backgroundScrollOffset % scaledWidth, 0, scaledWidth, canvas.height);
+    backgroundCtx.drawImage(backgroundImage, -backgroundScrollOffset % scaledWidth + scaledWidth, 0, scaledWidth, canvas.height);
+
+    // Draw background canvas to main canvas
+    ctx.drawImage(backgroundCanvas, 0, 0);
 
     // Draw and update blocks
     blocks.forEach(block => {
         block.draw(ctx, scrollOffset);
         // Collision detection with blocks
         if (player.x + player.borderWidth < block.x + block.width - scrollOffset &&
-            player.x + player.width  + player.borderWidth > block.x - scrollOffset &&
+            player.x + player.width  - player.borderWidth > block.x - scrollOffset &&
             player.y < block.y + block.height &&
             player.y + player.height > block.y) {
             // Collision detected
