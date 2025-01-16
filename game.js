@@ -12,13 +12,21 @@ const friction = 0.8;
 const keys = {};
 
 // Load sound effects
-const coinSound = new Audio('./assets/coin-collect.mp3');
+const soundCoin = new Audio('./sound/coin.wav');
+const soundJump = new Audio('./sound/jump.wav');
+const musicLevel = new Audio('./sound/level.mp3');
 
-const player = new Player(canvas.width / 2 - 16, canvas.height - 150, 75, 75, 5); // Adjust width and height to match sprite frame size
+soundJump.volume = 0.5;
+
+
+const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 const blocks = [
-    new Block(0, canvas.height - 50, canvas.width * 2, 50),
     new Block(200, canvas.height - 150, 100, 20),
-    new Block(400, canvas.height - 200, 100, 20),
+    new Block(400, canvas.height -50, 100, 20),
+    new Block(500, canvas.height -50, 100, 20),
+    new Block(600, canvas.height -50, 100, 20),
+    new Block(700, canvas.height -50, 100, 20),
+
     new Block(600, canvas.height - 250, 100, 20)
 ];
 const enemies = [
@@ -58,8 +66,8 @@ function update(time) {
     blocks.forEach(block => {
         block.draw(ctx, scrollOffset);
         // Collision detection with blocks
-        if (player.x < block.x + block.width - scrollOffset &&
-            player.x + player.width > block.x - scrollOffset &&
+        if (player.x + player.borderWidth < block.x + block.width - scrollOffset &&
+            player.x + player.width  + player.borderWidth > block.x - scrollOffset &&
             player.y < block.y + block.height &&
             player.y + player.height > block.y) {
             // Collision detected
@@ -93,7 +101,7 @@ function update(time) {
     coins.forEach(coin => {
         coin.draw(ctx, scrollOffset);
         if (coin.collect(player, scrollOffset)) {
-            coinSound.play();
+            soundCoin.play();
             console.log('Coin collected!');
         }
     });
@@ -111,6 +119,12 @@ function update(time) {
 
 document.addEventListener('keydown', (e) => {
     keys[e.key] = true;
+    if (e.key === ' ' && player.grounded) {
+        soundJump.play();
+    }
+    if(musicLevel.paused){
+        musicLevel.play();
+    }
 });
 
 document.addEventListener('keyup', (e) => {
