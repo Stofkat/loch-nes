@@ -74,7 +74,7 @@ const enemies = [
 const nessie = new Nessie(-1000, canvas.height - 450, 800, 400, 3); // Nessie
 const waterBlocks = [];
 for (let i = 0; i < canvas.width * 2; i += 32) {
-    waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, '#0000FFDD')); // Higher and asymmetrical waves
+    waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, '#3333FFCC')); // Higher and asymmetrical waves
 }
 const coins = [
     new Coin(50, canvas.height - 70, 16, 16), // Coin on the ground
@@ -88,6 +88,7 @@ const rain = new Rain(canvas, 100); // Create rain effect with 100 drops
 let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
+let score = 0; // Initialize score
 
 function update(time) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -143,6 +144,7 @@ function update(time) {
         coin.draw(ctx, scrollOffset);
         if (coin.collect(player, scrollOffset)) {
             soundCoin.play();
+            score += 10; // Increase score by 10 for each coin collected
             console.log('Coin collected!');
         }
     });
@@ -162,6 +164,11 @@ function update(time) {
     // Update and draw rain
     rain.update();
     rain.draw();
+
+    // Draw score
+    ctx.font = '20px "Press Start 2P"'; // Use 8-bit font
+    ctx.fillStyle = 'white';
+    ctx.fillText(`Score: ${score}`, canvas.width - 200, 30);
 
     requestAnimationFrame(update);
 }

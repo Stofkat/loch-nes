@@ -9,7 +9,7 @@ export class Rain {
             this.drops.push({
                 x: Math.random() * this.canvas.width,
                 y: Math.random() * this.canvas.height,
-                length: Math.random() * 20 + 10,
+                length: 5,
                 speed: Math.random() * 2 + 2
             });
         }
@@ -27,7 +27,7 @@ export class Rain {
 
     draw() {
         this.ctx.strokeStyle = 'rgba(7, 91, 219, 0.5)';
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = 4;
         this.ctx.lineCap = 'square';
 
         this.drops.forEach(drop => {
