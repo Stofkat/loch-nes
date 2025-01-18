@@ -118,47 +118,22 @@ function update(time) {
     // Draw and update blocks
     blocks.forEach(block => {
         block.draw(ctx, scrollOffset);
-        // Collision detection with blocks
-        if (player.x + player.borderWidth < block.x + block.width - scrollOffset &&
-            player.x + player.width  - player.borderWidth > block.x - scrollOffset &&
-            player.y < block.y + block.height &&
-            player.y + player.height > block.y) {
-            // Collision detected
-            if (player.dy > 0) { // Falling
-                player.y = block.y - player.height;
-                player.dy = 0;
-                player.jumping = false;
-                player.grounded = true;
-            } else if (player.dy < 0) { // Jumping
-                player.y = block.y + block.height;
-                player.dy = 0;
-            }
-        }
     });
+
+    // Check player collision with blocks
+    player.checkCollision(blocks, scrollOffset);
 
     // Draw and update enemies
     enemies.forEach(enemy => {
         enemy.draw(ctx, scrollOffset);
-        enemy.update(canvas, scrollOffset);
-        // Collision detection with enemies
-        if (player.x < enemy.x + enemy.width - scrollOffset &&
-            player.x + player.width > enemy.x - scrollOffset &&
-            player.y < enemy.y + enemy.height &&
-            player.y + player.height > enemy.y) {
-            // Collision detected
-          //  document.location.reload();
-        }
+        enemy.update(blocks, scrollOffset);
+        // Check player collision with enemies
+        enemy.checkCollision(player, scrollOffset);
     });
 
+        // Draw player
+        player.draw(ctx);
 
-    // Collision detection with Nessie
-    if (player.x + player.borderWidth < nessie.x + nessie.width  - scrollOffset &&
-        player.x + player.width - player.borderWidth > nessie.x  - scrollOffset &&
-        player.y < nessie.y + nessie.height &&
-        player.y + player.height > nessie.y) {
-        // Collision detected
-       // document.location.reload();
-    }
 
     // Draw and update coins
     coins.forEach(coin => {
@@ -169,18 +144,18 @@ function update(time) {
         }
     });
 
+    // Draw and update Nessie
+    nessie.draw(ctx, scrollOffset);
+    nessie.update();
+    // Check player collision with Nessie
+    nessie.checkCollision(player, scrollOffset);
+
+
     // Draw water blocks
     waterBlocks.forEach(water => {
         water.draw(ctx, time);
     });
 
-    // Draw player
-    player.draw(ctx);
-
-
-    // Draw and update Nessie
-    nessie.draw(ctx, scrollOffset);
-    nessie.update();
 
     requestAnimationFrame(update);
 }

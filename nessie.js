@@ -28,6 +28,15 @@ export class Nessie {
 
   update() {
       this.x += this.dx;
+  }
 
+  checkCollision(player, scrollOffset) {
+      if (player.x + player.borderWidth < this.x + this.width - scrollOffset &&
+          player.x + player.width - player.borderWidth > this.x - scrollOffset &&
+          player.y < this.y + this.height &&
+          player.y + player.height > this.y) {
+          // Collision detected
+          document.location.reload();
+      }
   }
 }

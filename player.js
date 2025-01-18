@@ -1,5 +1,5 @@
 export class Player {
-    constructor(x, y,) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
         this.width = 75;
@@ -82,5 +82,25 @@ export class Player {
         } else {
             this.frameIndex = 0; // Reset to the first frame when not moving
         }
+    }
+
+    checkCollision(blocks, scrollOffset) {
+        blocks.forEach(block => {
+            if (this.x + this.borderWidth < block.x + block.width - scrollOffset &&
+                this.x + this.width - this.borderWidth > block.x - scrollOffset &&
+                this.y < block.y + block.height &&
+                this.y + this.height > block.y) {
+                // Collision detected
+                if (this.dy > 0) { // Falling
+                    this.y = block.y - this.height;
+                    this.dy = 0;
+                    this.jumping = false;
+                    this.grounded = true;
+                } else if (this.dy < 0) { // Jumping
+                    this.y = block.y + block.height;
+                    this.dy = 0;
+                }
+            }
+        });
     }
 }
