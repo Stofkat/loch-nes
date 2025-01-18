@@ -35,13 +35,42 @@ const blocks = [
     new Block(500, canvas.height -70, 100, 20),
     new Block(600, canvas.height -70, 100, 20),
     new Block(700, canvas.height -70, 100, 20),
+    new Block(600, canvas.height - 250, 100, 20),
 
-    new Block(600, canvas.height - 250, 100, 20)
+    new Block(900, canvas.height - 150, 100, 20),
+    new Block(1100, canvas.height -70, 100, 20),
+    new Block(1200, canvas.height -70, 100, 20),
+    new Block(1400, canvas.height -150, 100, 20),
+    new Block(1600, canvas.height -200, 100, 20),
+    new Block(1800, canvas.height -300, 100, 20),
+    new Block(1900, canvas.height -300, 100, 20),
+    new Block(2000, canvas.height -300, 100, 20),
+
+    new Block(2300, canvas.height -70, 100, 20),
+
+    new Block(2500, canvas.height -70, 100, 20),
+
+    new Block(2700, canvas.height -70, 100, 20),
+    new Block(2800, canvas.height -70, 100, 20),
+    new Block(2900, canvas.height -70, 100, 20),
+
+    new Block(3000, canvas.height -70, 100, 20),
+    new Block(3100, canvas.height -70, 100, 20),
+    new Block(3100, canvas.height -280, 100, 20),
+    new Block(3100, canvas.height -460, 100, 20),
+
+    new Block(3200, canvas.height -70, 100, 20),
+
+    new Block(3300, canvas.height -70, 100, 20),
+    new Block(3300, canvas.height -190, 100, 20),
+    new Block(3300, canvas.height -370, 100, 20),
+
+
 ];
 const enemies = [
     new Enemy(0, canvas.height - 400, 64, 64, 2) // Adjusted size to match the new sprite
 ];
-const nessie = new Nessie(-600, canvas.height - 200, 400, 200, 1); // Nessie
+const nessie = new Nessie(-1000, canvas.height - 450, 800, 400, 3); // Nessie
 const waterBlocks = [];
 for (let i = 0; i < canvas.width * 2; i += 32) {
     waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, '#0000FFDD')); // Higher and asymmetrical waves
@@ -121,9 +150,7 @@ function update(time) {
         }
     });
 
-    // Draw and update Nessie
-    nessie.draw(ctx, scrollOffset);
-    nessie.update();
+
     // Collision detection with Nessie
     if (player.x + player.borderWidth < nessie.x + nessie.width  - scrollOffset &&
         player.x + player.width - player.borderWidth > nessie.x  - scrollOffset &&
@@ -149,6 +176,11 @@ function update(time) {
 
     // Draw player
     player.draw(ctx);
+
+
+    // Draw and update Nessie
+    nessie.draw(ctx, scrollOffset);
+    nessie.update();
 
     requestAnimationFrame(update);
 }
