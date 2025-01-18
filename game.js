@@ -29,6 +29,10 @@ soundJump.volume = 0.5;
 const backgroundImage = new Image();
 backgroundImage.src = './assets/background.png';
 
+// Load start screen background image
+const startScreenImage = new Image();
+startScreenImage.src = './assets/title.png';
+
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 const blocks = [
     new Block(200, canvas.height - 150, 100, 20),
@@ -89,8 +93,23 @@ let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
 let score = 0; // Initialize score
+let gameStarted = false; // Track if the game has started
+
+function startScreen() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height); // Draw scenic background
+    ctx.font = '30px "Press Start 2P"'; // Use 8-bit font
+    ctx.fillStyle = 'white';
+    ctx.textAlign = 'center';
+    ctx.fillText('Press any key to start', canvas.width / 2, canvas.height / 2 + 100); // Adjust position
+}
 
 function update(time) {
+    if (!gameStarted) {
+        startScreen();
+        return;
+    }
+
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 
@@ -174,6 +193,10 @@ function update(time) {
 }
 
 document.addEventListener('keydown', (e) => {
+    if (!gameStarted) {
+        gameStarted = true;
+        update();
+    }
     keys[e.key] = true;
     if (e.key === ' ' && player.grounded) {
         soundJump.play();
@@ -187,4 +210,4 @@ document.addEventListener('keyup', (e) => {
     keys[e.key] = false;
 });
 
-update();
+startScreen(); // Show start screen initially
