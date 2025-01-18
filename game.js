@@ -4,6 +4,7 @@ import { Enemy } from './enemy.js';
 import { Water } from './water.js';
 import { Coin } from './coin.js';
 import { Nessie } from './nessie.js';
+import { Rain } from './rain.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -82,6 +83,8 @@ const coins = [
     new Coin(650, canvas.height - 270, 16, 16) // Coin on the third platform
 ];
 
+const rain = new Rain(canvas, 100); // Create rain effect with 100 drops
+
 let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
@@ -156,6 +159,9 @@ function update(time) {
         water.draw(ctx, time);
     });
 
+    // Update and draw rain
+    rain.update();
+    rain.draw();
 
     requestAnimationFrame(update);
 }
