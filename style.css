@@ -4,11 +4,33 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #87CEEB;
+    background-color: black;
 }
 
 canvas {
     border: 1px solid #000;
+}
+
+.crt-container {
+    position: relative;
+    width: 800px;
+    height: 600px;
+}
+
+.crt-overlay {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 150%;
+    height: 130%;
+    background: url('assets/crt-overlay.png') no-repeat center center;
+    background-size: cover;
+}
+
+#gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 

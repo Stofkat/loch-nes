@@ -31,7 +31,7 @@ backgroundImage.src = './assets/background.png';
 
 // Load start screen background image
 const startScreenImage = new Image();
-startScreenImage.src = './assets/title.png';
+startScreenImage.src = './assets/title1.png';
 
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 const blocks = [
@@ -95,13 +95,48 @@ let backgroundScrollOffset = 0;
 let score = 0; // Initialize score
 let gameStarted = false; // Track if the game has started
 
+let pulseScale = 1;
+let pulseDirection = 1;
+const pulseSpeed = 0.01; // Reduce the speed to half
+const maxPulseScale = 1.2;
+const minPulseScale = 0.8;
+
+let pulseAlpha = 1;
+pulseDirection = -1;
+const minAlpha = 0.3;
+const maxAlpha = 1;
+
+function drawTextWithOutline(text, x, y, fontSize) {
+    ctx.font = `${fontSize}px "Press Start 2P"`; // Use 8-bit font
+    ctx.textAlign = 'center';
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = 'black';
+    ctx.strokeText(text, x, y);
+    ctx.fillStyle = 'white';
+    ctx.fillText(text, x, y);
+}
+
 function startScreen() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height); // Draw scenic background
-    ctx.font = '30px "Press Start 2P"'; // Use 8-bit font
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'center';
-    ctx.fillText('Press any key to start', canvas.width / 2, canvas.height / 2 + 100); // Adjust position
+
+    // Draw title with outline
+    drawTextWithOutline('Loch NES', canvas.width / 2, canvas.height / 2 - 100, 50);
+
+    // Draw pulsing "Press any key to start" text with outline
+    ctx.save();
+    ctx.globalAlpha = pulseAlpha;
+    ctx.translate(canvas.width / 2, canvas.height / 2 + 100);
+    drawTextWithOutline('Press any key to start', 0, 0, 20);
+    ctx.restore();
+
+    // Update pulse alpha
+    pulseAlpha += pulseSpeed * pulseDirection;
+    if (pulseAlpha > maxAlpha || pulseAlpha < minAlpha) {
+        pulseDirection *= -1;
+    }
+
+    requestAnimationFrame(startScreen);
 }
 
 function update(time) {
