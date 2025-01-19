@@ -272,7 +272,12 @@ document.getElementById("buttonA").addEventListener("touchstart", () => {
   }
 });
 document.getElementById("buttonA").addEventListener("touchend", () => {
+  if (!gameStarted) {
+    requestFullScreen();
+    startGame();
+  }
   keys[" "] = false;
+  
 });
 
 startScreen(); // Show start screen initially
