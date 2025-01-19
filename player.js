@@ -1,3 +1,5 @@
+import { Nessie } from "./nessie.js";
+
 export class Player {
     constructor(x, y) {
         this.x = x;
@@ -84,20 +86,25 @@ export class Player {
         }
     }
 
-    checkCollision(blocks, scrollOffset) {
-        blocks.forEach(block => {
-            if (this.x + this.borderWidth < block.x + block.width - scrollOffset &&
-                this.x + this.width - this.borderWidth > block.x - scrollOffset &&
-                this.y < block.y + block.height &&
-                this.y + this.height > block.y) {
+    checkCollision(objects, scrollOffset) {
+        objects.forEach(gameObj => {
+            if (this.x + this.borderWidth < gameObj.x + gameObj.width - scrollOffset &&
+                this.x + this.width - this.borderWidth > gameObj.x - scrollOffset &&
+                this.y < gameObj.y + gameObj.height &&
+                this.y + this.height > gameObj.y) {
+                
+                if (gameObj instanceof Nessie) {
+                    document.location.reload();
+                }
+                
                 // Collision detected
                 if (this.dy > 0) { // Falling
-                    this.y = block.y - this.height;
+                    this.y = gameObj.y - this.height;
                     this.dy = 0;
                     this.jumping = false;
                     this.grounded = true;
                 } else if (this.dy < 0) { // Jumping
-                    this.y = block.y + block.height;
+                    this.y = gameObj.y + gameObj.height;
                     this.dy = 0;
                 }
             }

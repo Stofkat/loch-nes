@@ -34,7 +34,9 @@ const startScreenImage = new Image();
 startScreenImage.src = "./assets/title1.png";
 
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
-const blocks = [
+
+const gameObjects = [
+  new Nessie(-1000, canvas.height - 450, 800, 400, 3), // Nessie
   new Block(200, canvas.height - 150, 100, 20),
   new Block(400, canvas.height - 70, 100, 20),
   new Block(500, canvas.height - 70, 100, 20),
@@ -50,6 +52,7 @@ const blocks = [
   new Block(1800, canvas.height - 300, 100, 20),
   new Block(1900, canvas.height - 300, 100, 20),
   new Block(2000, canvas.height - 300, 100, 20),
+  new Enemy(0, canvas.height - 400, 64, 64, 2), // Adjusted size to match the new sprite
 
   new Block(2300, canvas.height - 70, 100, 20),
 
@@ -69,23 +72,20 @@ const blocks = [
   new Block(3300, canvas.height - 70, 100, 20),
   new Block(3300, canvas.height - 190, 100, 20),
   new Block(3300, canvas.height - 370, 100, 20),
-];
-const enemies = [
-  new Enemy(0, canvas.height - 400, 64, 64, 2), // Adjusted size to match the new sprite
-];
-const nessie = new Nessie(-1000, canvas.height - 450, 800, 400, 3); // Nessie
-const waterBlocks = [];
-for (let i = 0; i < canvas.width * 2; i += 32) {
-  waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC")); // Higher and asymmetrical waves
-}
-const coins = [
+
   new Coin(50, canvas.height - 70, 16, 16), // Coin on the ground
   new Coin(250, canvas.height - 170, 16, 16), // Coin on the first platform
   new Coin(450, canvas.height - 220, 16, 16), // Coin on the second platform
   new Coin(650, canvas.height - 270, 16, 16), // Coin on the third platform
 ];
 
+const waterBlocks = [];
+for (let i = 0; i < canvas.width * 2; i += 32) {
+  waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC")); // Higher and asymmetrical waves
+}
+
 const rain = new Rain(canvas, 100); // Create rain effect with 100 drops
+gameObjects.push(rain);
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
@@ -144,7 +144,7 @@ function update(time) {
   backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 
   // Update player position
-  player.update(keys, gravity, friction, canvas);
+  player.update(keys, gravity, canvas);
 
   // Scroll the world
   if (keys["ArrowRight"]) {
@@ -180,49 +180,21 @@ function update(time) {
   // Draw background canvas to main canvas
   ctx.drawImage(backgroundCanvas, 0, 0);
 
-  // Draw and update blocks
-  blocks.forEach((block) => {
-    block.draw(ctx, scrollOffset);
+  // Draw player
+  -player.draw(ctx);
+
+  // Draw and update all game objects
+  gameObjects.forEach((obj) => {
+    obj.draw(ctx, scrollOffset);
+    if (obj.update) obj.update(gameObjects, scrollOffset);
   });
 
   // Check player collision with blocks
-  player.checkCollision(blocks, scrollOffset);
+  player.checkCollision(gameObjects, scrollOffset);
 
-  // Draw and update enemies
-  enemies.forEach((enemy) => {
-    enemy.draw(ctx, scrollOffset);
-    enemy.update(blocks, scrollOffset);
-    // Check player collision with enemies
-    enemy.checkCollision(player, scrollOffset);
-  });
-
-  // Draw player
-  player.draw(ctx);
-
-  // Draw and update coins
-  coins.forEach((coin) => {
-    coin.draw(ctx, scrollOffset);
-    if (coin.collect(player, scrollOffset)) {
-      soundCoin.play();
-      score += 10; // Increase score by 10 for each coin collected
-      console.log("Coin collected!");
-    }
-  });
-
-  // Draw and update Nessie
-  nessie.draw(ctx, scrollOffset);
-  nessie.update();
-  // Check player collision with Nessie
-  nessie.checkCollision(player, scrollOffset);
-
-  // Draw water blocks
   waterBlocks.forEach((water) => {
     water.draw(ctx, time);
   });
-
-  // Update and draw rain
-  rain.update();
-  rain.draw();
 
   // Draw score
   ctx.font = '20px "Press Start 2P"'; // Use 8-bit font

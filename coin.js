@@ -1,9 +1,8 @@
-export class Coin {
+import { GameObject } from "./gameObject.js";
+
+export class Coin extends GameObject {
     constructor(x, y, width, height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.collected = false;
 
         this.image = new Image();
