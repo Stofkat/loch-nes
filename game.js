@@ -218,62 +218,28 @@ function handleTouchStart(event) {
 }
 
 function requestFullScreen() {
-  if (canvas.requestFullscreen) {
-    canvas.requestFullscreen();
-  } else if (canvas.mozRequestFullScreen) { // Firefox
-    canvas.mozRequestFullScreen();
-  } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
-    canvas.webkitRequestFullscreen();
-  } else if (canvas.msRequestFullscreen) { // IE/Edge
-    canvas.msRequestFullscreen();
+  const body = document.body;
+  if (body.requestFullscreen) {
+    body.requestFullscreen();
+  } else if (body.mozRequestFullScreen) { // Firefox
+    body.mozRequestFullScreen();
+  } else if (body.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    body.webkitRequestFullscreen();
+  } else if (body.msRequestFullscreen) { // IE/Edge
+    body.msRequestFullscreen();
   }
 }
 
-function handleTouchEnd(event) {
-  if (!gameStarted) {
-    gameStarted = true;
-    musicLevel.play();
-    update();
-    requestFullScreen(); // Request full screen when the game starts
-  }
-
-  const touchEndX = event.changedTouches[0].clientX;
-  const touchEndY = event.changedTouches[0].clientY;
-
-  const diffX = touchEndX - touchStartX;
-  const diffY = touchEndY - touchStartY;
-
-  if (diffX > 50) {
-    keys["ArrowRight"] = true;
-    keys["ArrowLeft"] = false;
-  } else if (diffX < -50) {
-    keys["ArrowRight"] = false;
-    keys["ArrowLeft"] = true;
-  } 
-  if (diffY < -50) {
-    if (player.grounded) {
-      keys[" "] = true;
-      soundJump.play();
-    }
-  } 
-  if(diffX === 0 && diffY === 0) {
-    // Tapping stops all movement
-    keys["ArrowRight"] = false;
-    keys["ArrowLeft"] = false;
-    keys[" "] = false;
-  }
-
-  // Reset jump key after handling touch end
-  setTimeout(() => {
-    keys[" "] = false;
-  }, 100);
+function startGame() {
+  gameStarted = true;
+  musicLevel.play();
+  update();
 }
 
 document.addEventListener("keydown", (e) => {
   if (!gameStarted) {
-    gameStarted = true;
-    musicLevel.play();
-    update();
+    requestFullScreen();
+    startGame();
   }
   keys[e.key] = true;
   if (e.key === " " && player.grounded) {
@@ -285,7 +251,68 @@ document.addEventListener("keyup", (e) => {
   keys[e.key] = false;
 });
 
-document.addEventListener("touchstart", handleTouchStart, false);
-document.addEventListener("touchend", handleTouchEnd, false);
+document.getElementById("left").addEventListener("touchstart", () => {
+  keys["ArrowLeft"] = true;
+});
+document.getElementById("left").addEventListener("touchend", () => {
+  keys["ArrowLeft"] = false;
+});
+
+document.getElementById("right").addEventListener("touchstart", () => {
+  keys["ArrowRight"] = true;
+});
+document.getElementById("right").addEventListener("touchend", () => {
+  keys["ArrowRight"] = false;
+});
+
+document.getElementById("buttonA").addEventListener("touchstart", () => {
+  if (player.grounded) {
+    keys[" "] = true;
+    soundJump.play();
+  }
+});
+document.getElementById("buttonA").addEventListener("touchend", () => {
+  keys[" "] = false;
+});
 
 startScreen(); // Show start screen initially
+
+// Disabled for now
+// document.addEventListener("touchstart", handleTouchStart, false);
+// document.addEventListener("touchend", handleTouchEnd, false);
+
+// Disabled for now
+
+// function handleTouchEnd(event) {
+//   if (!gameStarted) {
+//     requestFullScreen();
+//     startGame();
+//   }
+
+//   const touchEndX = event.changedTouches[0].clientX;
+//   const touchEndY = event.changedTouches[0].clientY;
+
+//   const diffX = touchEndX - touchStartX;
+//   const diffY = touchEndY - touchStartY;
+
+//   if (diffX > 50) {
+//     keys["ArrowRight"] = true;
+//     keys["ArrowLeft"] = false;
+//   } else if (diffX < -50) {
+//     keys["ArrowRight"] = false;
+//     keys["ArrowLeft"] = true;
+//   } 
+//   else {
+//     if (player.grounded) {
+//       keys[" "] = true;
+//       soundJump.play();
+//     }
+//   } 
+  
+
+//   // Reset jump key after handling touch end
+//   setTimeout(() => {
+//     keys[" "] = false;
+//   }, 100);
+// }
+

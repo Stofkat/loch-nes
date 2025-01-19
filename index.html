@@ -10,9 +10,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Add 8-bit font -->
 </head>
 <body>
-    <div class="crt-container">
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <div class="crt-overlay"></div>
+    <div class="container-console">
+        <div class="controls-left">
+            <div class="button" id="left">◀</div>
+            <div class="button" id="right">▶</div>
+            <div class="button" id="up">▲</div>
+            <div class="button" id="down">▼</div>
+        </div>
+        <div class="crt-container">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div class="crt-overlay"></div>
+        </div>
+        <div class="controls-right">
+            <div class="button" id="buttonA">A</div>
+            <div class="button" id="b">B</div>
+        </div>
     </div>
     <script>
         if (/Mobi|Android/i.test(navigator.userAgent)) {
