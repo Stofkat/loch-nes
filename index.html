@@ -1,37 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
 
     <title>Loch NES</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="module" src="game.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Add 8-bit font -->
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Add 8-bit font -->
+  </head>
+  <body>
+    <div id="startMessage">
+      Please flip your device to landscape mode.
+      <br /><br />
+      Then tap the screen to enter fullscreen.
+    </div>
     <div class="container-console">
-        <div class="controls-left">
-            <div class="joypad">
-                <div class="button" id="up">▲</div>
-                <div class="button" id="left">◀</div>
-                <div class="button" id="right">▶</div>
-                <div class="button" id="down">▼</div>
-            </div>
+      <div class="controls-left">
+        <div class="joypad">
+          <div class="button" id="up">▲</div>
+          <div class="button" id="left">◀</div>
+          <div class="button" id="right">▶</div>
+          <div class="button" id="down">▼</div>
         </div>
-        <div class="crt-container">
-            <canvas id="gameCanvas" width="800" height="600"></canvas>
-            <div class="crt-overlay"></div>
-        </div>
-        <div class="controls-right">
-            <div class="button" id="buttonA">A</div>
-            <div class="button" id="buttonB">B</div>
-        </div>
+      </div>
+      <div class="crt-container">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <div class="crt-overlay"></div>
+      </div>
+      <div class="controls-right">
+        <div class="button" id="buttonA">A</div>
+        <div class="button" id="buttonB">B</div>
+      </div>
     </div>
     <script>
-        if (/Mobi|Android/i.test(navigator.userAgent)) {
-            document.body.classList.add('mobile');
-        }
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        document.body.classList.add("mobile");
+      }
+
+      document.body.addEventListener(
+        "click",
+        () => {
+          const body = document.body;
+          if (body.requestFullscreen) {
+            body.requestFullscreen();
+          } else if (body.mozRequestFullScreen) {
+            // Firefox
+            body.mozRequestFullScreen();
+          } else if (body.webkitRequestFullscreen) {
+            // Chrome, Safari and Opera
+            body.webkitRequestFullscreen();
+          } else if (body.msRequestFullscreen) {
+            // IE/Edge
+            body.msRequestFullscreen();
+          }
+          document.getElementById("startMessage").style.display = "none";
+          const script = document.createElement("script");
+          script.type = "module";
+          script.src = "game.js";
+          document.body.appendChild(script);
+        },
+        { once: true }
+      );
     </script>
-</body>
+  </body>
 </html>

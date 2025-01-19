@@ -1,129 +1,139 @@
 body {
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: black;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
 }
 
 canvas {
-    border: 1px solid #000;
+  border: 1px solid #000;
 }
 
 .crt-container {
-    position: relative;
-    margin-left: -15%;
-    width: 800px;
-    height: 600px;
-    
+  position: relative;
+  margin-left: -15%;
+  width: 800px;
+  height: 600px;
 }
 
 .crt-overlay {
-    position: absolute;
-    top: -15%;
-    left: -10%;
-    width: 150%;
-    height: 130%;
-    background: url('assets/crt-overlay.png') no-repeat center center;
-    background-size: cover;
+  position: absolute;
+  top: -15%;
+  left: -10%;
+  width: 150%;
+  height: 130%;
+  background: url("assets/crt-overlay.png") no-repeat center center;
+  background-size: cover;
 }
 
 body.mobile .crt-overlay {
-    display: none;
+  display: none;
 }
 
 body.mobile {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 body.mobile .crt-container {
-    width: 100%;
-    height: 100%;
-    margin-left: unset;
+  width: 100%;
+  height: 100%;
+  margin-left: unset;
 }
 
 body.mobile #gameCanvas {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 #gameCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 body.mobile .container-console {
-    display: flex;
-    width: 100%;
-    height: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .controls-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .controls-right {
-    display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        height: 50%;
-        margin: auto;
-        margin-left: 20px;
-        margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50%;
+  margin: auto;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .joypad {
-    display: grid;
-    grid-template-areas:
-        ". up ."
-        "left . right"
-        ". down .";
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
 }
 
 .button {
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
-    font-family: 'Press Start 2P', cursive;
-    color: black;
-    user-select: none;
-    touch-action: manipulation;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-family: "Press Start 2P", cursive;
+  color: black;
+  user-select: none;
+  touch-action: manipulation;
 }
 
 .mobile-controls .button:active {
-    background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .joypad .button:active {
-    background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 .joypad .button#up {
-    grid-area: up;
+  grid-area: up;
 }
 
 .joypad .button#down {
-    grid-area: down;
+  grid-area: down;
 }
 
 .joypad .button#left {
-    grid-area: left;
+  grid-area: left;
 }
 
 .joypad .button#right {
-    grid-area: right;
+  grid-area: right;
 }
 
-
-
-
+#startMessage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+}
