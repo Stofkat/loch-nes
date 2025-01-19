@@ -19,7 +19,6 @@ const friction = 0.8;
 const keys = {};
 
 // Load sound effects
-const soundCoin = new Audio("./sound/coin.wav");
 const soundJump = new Audio("./sound/jump.wav");
 const musicLevel = new Audio("./sound/level.mp3");
 
@@ -73,6 +72,10 @@ const gameObjects = [
   new Block(3300, canvas.height - 190, 100, 20),
   new Block(3300, canvas.height - 370, 100, 20),
 
+  new Block(3500, canvas.height - 370, 100, 20),
+
+
+
   new Coin(50, canvas.height - 70, 16, 16), // Coin on the ground
   new Coin(250, canvas.height - 170, 16, 16), // Coin on the first platform
   new Coin(450, canvas.height - 220, 16, 16), // Coin on the second platform
@@ -90,7 +93,6 @@ gameObjects.push(rain);
 let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
-let score = 0; // Initialize score
 let gameStarted = false; // Track if the game has started
 
 let pulseDirection = 1;
@@ -100,6 +102,9 @@ let pulseAlpha = 1;
 pulseDirection = -1;
 const minAlpha = 0.3;
 const maxAlpha = 1;
+
+let touchStartX = 0;
+let touchStartY = 0;
 
 function drawTextWithOutline(text, x, y, fontSize) {
   ctx.font = `${fontSize}px "Press Start 2P"`; // Use 8-bit font
@@ -181,7 +186,7 @@ function update(time) {
   ctx.drawImage(backgroundCanvas, 0, 0);
 
   // Draw player
-  -player.draw(ctx);
+  player.draw(ctx);
 
   // Draw and update all game objects
   gameObjects.forEach((obj) => {
@@ -199,9 +204,54 @@ function update(time) {
   // Draw score
   ctx.font = '20px "Press Start 2P"'; // Use 8-bit font
   ctx.fillStyle = "white";
-  ctx.fillText(`Score: ${score}`, canvas.width - 200, 30);
+  ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
 
   requestAnimationFrame(update);
+
+}
+
+function handleTouchStart(event) {
+
+  const firstTouch = event.touches[0];
+  touchStartX = firstTouch.clientX;
+  touchStartY = firstTouch.clientY;
+}
+
+function handleTouchEnd(event) {
+  if (!gameStarted) {
+    gameStarted = true;
+    musicLevel.play();
+    update();
+  }
+
+  const touchEndX = event.changedTouches[0].clientX;
+  const touchEndY = event.changedTouches[0].clientY;
+
+  const diffX = touchEndX - touchStartX;
+  const diffY = touchEndY - touchStartY;
+
+  if (diffX > 50) {
+    keys["ArrowRight"] = true;
+    keys["ArrowLeft"] = false;
+  } else if (diffX < -50) {
+    keys["ArrowRight"] = false;
+    keys["ArrowLeft"] = true;
+  } else if (diffY < -50) {
+    if (player.grounded) {
+      keys[" "] = true;
+      soundJump.play();
+    }
+  } else {
+    // Tapping stops all movement
+    keys["ArrowRight"] = false;
+    keys["ArrowLeft"] = false;
+    keys[" "] = false;
+  }
+
+  // Reset jump key after handling touch end
+  setTimeout(() => {
+    keys[" "] = false;
+  }, 100);
 }
 
 document.addEventListener("keydown", (e) => {
@@ -219,5 +269,8 @@ document.addEventListener("keydown", (e) => {
 document.addEventListener("keyup", (e) => {
   keys[e.key] = false;
 });
+
+document.addEventListener("touchstart", handleTouchStart, false);
+document.addEventListener("touchend", handleTouchEnd, false);
 
 startScreen(); // Show start screen initially

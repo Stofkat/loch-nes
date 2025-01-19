@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Platform Game</title>
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>Loch NES</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="game.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> <!-- Add 8-bit font -->
@@ -13,6 +14,10 @@
         <canvas id="gameCanvas" width="800" height="600"></canvas>
         <div class="crt-overlay"></div>
     </div>
-    <img src="assets/start-screen-background.png" alt="Start Screen Background" style="display:none;">
+    <script>
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            document.body.classList.add('mobile');
+        }
+    </script>
 </body>
 </html>

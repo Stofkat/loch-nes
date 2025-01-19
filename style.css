@@ -13,8 +13,10 @@ canvas {
 
 .crt-container {
     position: relative;
+    margin-left: -15%;
     width: 800px;
     height: 600px;
+    
 }
 
 .crt-overlay {
@@ -25,31 +27,31 @@ canvas {
     height: 130%;
     background: url('assets/crt-overlay.png') no-repeat center center;
     background-size: cover;
-    @media (max-width: 768px) {
-        display: none;
-    }
+}
+
+body.mobile .crt-overlay {
+    display: none;
+}
+
+body.mobile {
+    flex-direction: column;
+}
+
+body.mobile .crt-container {
+    width: 100%;
+    height: 100%;
+    margin-left: unset;
+}
+
+body.mobile #gameCanvas {
+    width: 100%;
+    height: 100%;
 }
 
 #gameCanvas {
     position: absolute;
     top: 0;
     left: 0;
-}
-
-@media (max-width: 768px) {
-    body {
-        flex-direction: column;
-    }
-
-    .crt-container {
-        width: 100%;
-        height: 100%;
-    }
-
-    #gameCanvas {
-        width: 100%;
-        height: 100%;
-    }
 }
 
 
