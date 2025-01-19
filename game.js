@@ -39,23 +39,24 @@ startScreenImage.src = "./assets/title1.png";
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 
 const gameObjects = [
-  new Nessie(-1000, canvas.height - 450, 800, 400, 3), // Nessie
+  //new Nessie(-1000, canvas.height - 450, 800, 400, 3), // Nessie
   new Block(200, canvas.height - 150, 100, 20),
   new Block(400, canvas.height - 70, 100, 20),
   new Block(500, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 70, 100, 20),
-  new Coin(600, canvas.height - 80, 16, 16),
+  new Enemy(600, canvas.height - 90), // Adjusted size to match the new sprite
+  new Coin(600, canvas.height - 90, 16, 16),
   new Block(700, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 250, 100, 20),
 
   new Block(900, canvas.height - 150, 100, 20),
-  new Coin(900, canvas.height - 155, 16, 16),
+  new Coin(900, canvas.height - 170, 16, 16),
 
   new Block(1100, canvas.height - 70, 100, 20),
   new Block(1200, canvas.height - 70, 100, 20),
   new Coin(1200, canvas.height - 80, 16, 16),
   new Block(1400, canvas.height - 150, 100, 20),
-  new Coin(1400, canvas.height - 160, 16, 16),
+  new Coin(1400, canvas.height - 170, 16, 16),
 
   new Block(1600, canvas.height - 200, 100, 20),
   new Block(1800, canvas.height - 300, 100, 20),
