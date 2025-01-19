@@ -10,7 +10,7 @@ export class Enemy extends GameObject {
     this.grounded = false;
 
     this.image = new Image();
-    this.image.src = './assets/loch-ness-monster.svg';
+    this.image.src = './assets/gnome.png';
     this.image.onload = () => {
       this.loaded = true;
     };

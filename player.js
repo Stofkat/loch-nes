@@ -104,9 +104,6 @@ export class Player {
         if (gameObj instanceof Nessie && !this.isDead) {
           this.isDead = true;
           soundDeath.play();
-          setTimeout(() => {
-            document.location.reload();
-          }, 1000);
           return;
         }
 

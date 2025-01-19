@@ -21,6 +21,10 @@ const keys = {};
 // Load sound effects
 const soundJump = new Audio("./sound/jump.wav");
 const musicLevel = new Audio("./sound/level.mp3");
+const musicTitle = new Audio("./sound/title.mp3");
+musicTitle.play();
+musicTitle.loop = true;
+
 
 soundJump.volume = 0.3;
 
@@ -40,13 +44,19 @@ const gameObjects = [
   new Block(400, canvas.height - 70, 100, 20),
   new Block(500, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 70, 100, 20),
+  new Coin(600, canvas.height - 80, 16, 16),
   new Block(700, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 250, 100, 20),
 
   new Block(900, canvas.height - 150, 100, 20),
+  new Coin(900, canvas.height - 155, 16, 16),
+
   new Block(1100, canvas.height - 70, 100, 20),
   new Block(1200, canvas.height - 70, 100, 20),
+  new Coin(1200, canvas.height - 80, 16, 16),
   new Block(1400, canvas.height - 150, 100, 20),
+  new Coin(1400, canvas.height - 160, 16, 16),
+
   new Block(1600, canvas.height - 200, 100, 20),
   new Block(1800, canvas.height - 300, 100, 20),
   new Block(1900, canvas.height - 300, 100, 20),
@@ -73,18 +83,19 @@ const gameObjects = [
   new Block(3300, canvas.height - 370, 100, 20),
 
   new Block(3500, canvas.height - 370, 100, 20),
+  new Block(3600, canvas.height - 370, 100, 20),
+  new Block(3700, canvas.height - 370, 100, 20),
+
+  new Block(4100, canvas.height - 150, 100, 20),
+  new Block(4200, canvas.height - 150, 100, 20),
+  new Block(4300, canvas.height - 150, 100, 20),
 
 
-
-  new Coin(50, canvas.height - 70, 16, 16), // Coin on the ground
-  new Coin(250, canvas.height - 170, 16, 16), // Coin on the first platform
-  new Coin(450, canvas.height - 220, 16, 16), // Coin on the second platform
-  new Coin(650, canvas.height - 270, 16, 16), // Coin on the third platform
 ];
 
 const waterBlocks = [];
 for (let i = 0; i < canvas.width * 2; i += 32) {
-  waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC")); // Higher and asymmetrical waves
+  waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC"));
 }
 
 const rain = new Rain(canvas, 100); // Create rain effect with 100 drops
@@ -102,9 +113,6 @@ let pulseAlpha = 1;
 pulseDirection = -1;
 const minAlpha = 0.3;
 const maxAlpha = 1;
-
-let touchStartX = 0;
-let touchStartY = 0;
 
 function drawTextWithOutline(text, x, y, fontSize) {
   ctx.font = `${fontSize}px "Press Start 2P"`; // Use 8-bit font
@@ -142,6 +150,15 @@ function startScreen() {
 function update(time) {
   if (!gameStarted) {
     startScreen();
+    return;
+  }
+
+  // Check for game over state
+  if (player.isDead) {
+    gameStarted = false;
+    musicLevel.pause();
+    musicLevel.currentTime = 0;
+    musicTitle.play();
     return;
   }
 
@@ -207,38 +224,18 @@ function update(time) {
   ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
 
   requestAnimationFrame(update);
-
-}
-
-function handleTouchStart(event) {
-
-  const firstTouch = event.touches[0];
-  touchStartX = firstTouch.clientX;
-  touchStartY = firstTouch.clientY;
-}
-
-function requestFullScreen() {
-  const body = document.body;
-  if (body.requestFullscreen) {
-    body.requestFullscreen();
-  } else if (body.mozRequestFullScreen) { // Firefox
-    body.mozRequestFullScreen();
-  } else if (body.webkitRequestFullscreen) { // Chrome, Safari and Opera
-    body.webkitRequestFullscreen();
-  } else if (body.msRequestFullscreen) { // IE/Edge
-    body.msRequestFullscreen();
-  }
 }
 
 function startGame() {
   gameStarted = true;
+  musicTitle.pause();
+  musicTitle.currentTime = 0;
   musicLevel.play();
   update();
 }
 
 document.addEventListener("keydown", (e) => {
   if (!gameStarted) {
-    requestFullScreen();
     startGame();
   }
   keys[e.key] = true;
@@ -273,51 +270,9 @@ document.getElementById("buttonA").addEventListener("touchstart", () => {
 });
 document.getElementById("buttonA").addEventListener("touchend", () => {
   if (!gameStarted) {
-    requestFullScreen();
     startGame();
   }
   keys[" "] = false;
-  
 });
 
 startScreen(); // Show start screen initially
-
-// Disabled for now
-// document.addEventListener("touchstart", handleTouchStart, false);
-// document.addEventListener("touchend", handleTouchEnd, false);
-
-// Disabled for now
-
-// function handleTouchEnd(event) {
-//   if (!gameStarted) {
-//     requestFullScreen();
-//     startGame();
-//   }
-
-//   const touchEndX = event.changedTouches[0].clientX;
-//   const touchEndY = event.changedTouches[0].clientY;
-
-//   const diffX = touchEndX - touchStartX;
-//   const diffY = touchEndY - touchStartY;
-
-//   if (diffX > 50) {
-//     keys["ArrowRight"] = true;
-//     keys["ArrowLeft"] = false;
-//   } else if (diffX < -50) {
-//     keys["ArrowRight"] = false;
-//     keys["ArrowLeft"] = true;
-//   } 
-//   else {
-//     if (player.grounded) {
-//       keys[" "] = true;
-//       soundJump.play();
-//     }
-//   } 
-  
-
-//   // Reset jump key after handling touch end
-//   setTimeout(() => {
-//     keys[" "] = false;
-//   }, 100);
-// }
-
