@@ -217,11 +217,24 @@ function handleTouchStart(event) {
   touchStartY = firstTouch.clientY;
 }
 
+function requestFullScreen() {
+  if (canvas.requestFullscreen) {
+    canvas.requestFullscreen();
+  } else if (canvas.mozRequestFullScreen) { // Firefox
+    canvas.mozRequestFullScreen();
+  } else if (canvas.webkitRequestFullscreen) { // Chrome, Safari and Opera
+    canvas.webkitRequestFullscreen();
+  } else if (canvas.msRequestFullscreen) { // IE/Edge
+    canvas.msRequestFullscreen();
+  }
+}
+
 function handleTouchEnd(event) {
   if (!gameStarted) {
     gameStarted = true;
     musicLevel.play();
     update();
+    requestFullScreen(); // Request full screen when the game starts
   }
 
   const touchEndX = event.changedTouches[0].clientX;
@@ -236,12 +249,14 @@ function handleTouchEnd(event) {
   } else if (diffX < -50) {
     keys["ArrowRight"] = false;
     keys["ArrowLeft"] = true;
-  } else if (diffY < -50) {
+  } 
+  if (diffY < -50) {
     if (player.grounded) {
       keys[" "] = true;
       soundJump.play();
     }
-  } else {
+  } 
+  if(diffX === 0 && diffY === 0) {
     // Tapping stops all movement
     keys["ArrowRight"] = false;
     keys["ArrowLeft"] = false;
