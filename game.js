@@ -44,7 +44,7 @@ const gameObjects = [
   new Block(400, canvas.height - 70, 100, 20),
   new Block(500, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 70, 100, 20),
-  new Enemy(600, canvas.height - 90), // Adjusted size to match the new sprite
+  new Enemy(600, canvas.height - 144), // Adjusted size to match the new sprite
   new Coin(600, canvas.height - 90, 16, 16),
   new Block(700, canvas.height - 70, 100, 20),
   new Block(600, canvas.height - 250, 100, 20),

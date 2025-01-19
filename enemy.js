@@ -55,22 +55,20 @@ export class Enemy extends GameObject {
 
     // Check for block diagonally underneath in the direction they are facing
     let onBlock = false;
-    const checkX = (this.facingRight ? this.x + (this.width /2) : this.x - (this.width/2)) -scrollOffset;
-    const checkY = this.y  + (this.height /2);
+    const checkX1 = this.facingRight ? this.x + this.width : this.x;
+    const checkX2 = this.facingRight ? this.x + this.width : this.x - 1;
 
-    console.log("checkX", checkX);
-    console.log("checkY", checkY);
+    const checkY = this.y + this.height + 10;
 
     objects.forEach((gameObj) => {
-      if (
-        gameObj instanceof Block,
-        checkX < gameObj.x + gameObj.width  &&
-        checkX + this.width > gameObj.x &&
-        checkY < gameObj.y + gameObj.height &&
-        checkY + this.height > gameObj.y
+      if (gameObj instanceof Block && 
+        ((checkX1 > gameObj.x && checkX1 < gameObj.x + gameObj.width) ||
+        (checkX2 > gameObj.x && checkX2 < gameObj.x + gameObj.width)) 
+        &&
+          (checkY >= gameObj.y &&
+          checkY <= gameObj.y + gameObj.height)
       ) {
         onBlock = true;
-        console.log("on block");
       }
     });
 
