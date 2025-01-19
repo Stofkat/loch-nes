@@ -23,7 +23,7 @@ const soundCoin = new Audio('./sound/coin.wav');
 const soundJump = new Audio('./sound/jump.wav');
 const musicLevel = new Audio('./sound/level.mp3');
 
-soundJump.volume = 0.5;
+soundJump.volume = 0.3;
 
 // Load background image
 const backgroundImage = new Image();
@@ -230,14 +230,12 @@ function update(time) {
 document.addEventListener('keydown', (e) => {
     if (!gameStarted) {
         gameStarted = true;
+        musicLevel.play();
         update();
     }
     keys[e.key] = true;
     if (e.key === ' ' && player.grounded) {
         soundJump.play();
-    }
-    if(musicLevel.paused){
-        //musicLevel.play();
     }
 });
 

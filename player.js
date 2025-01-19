@@ -58,7 +58,7 @@ export class Player {
         }
 
         if (keys[' '] && !this.jumping && this.grounded) {
-            this.dy = -this.speed * 2;
+            this.dy = -this.speed * 2.5;
             this.jumping = true;
             this.grounded = false;
         }
