@@ -41,20 +41,19 @@ const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust
 const gameObjects = [
   //new Nessie(-1000, canvas.height - 450, 800, 400, 3), // Nessie
   new Block(200, canvas.height - 150, 100, 20),
-  new Block(400, canvas.height - 70, 100, 20),
-  new Block(500, canvas.height - 70, 100, 20),
-  new Block(600, canvas.height - 70, 100, 20),
-  new Enemy(600, canvas.height - 144), // Adjusted size to match the new sprite
-  new Coin(600, canvas.height - 90, 16, 16),
-  new Block(700, canvas.height - 70, 100, 20),
+  new Block(400, canvas.height - 80, 100, 20),
+  new Block(500, canvas.height - 80, 100, 20),
+  new Block(600, canvas.height - 80, 100, 20),
+  new Coin(600, canvas.height - 100, 16, 16),
+  new Block(700, canvas.height - 80, 100, 20),
   new Block(600, canvas.height - 250, 100, 20),
 
   new Block(900, canvas.height - 150, 100, 20),
   new Coin(900, canvas.height - 170, 16, 16),
 
-  new Block(1100, canvas.height - 70, 100, 20),
-  new Block(1200, canvas.height - 70, 100, 20),
-  new Coin(1200, canvas.height - 80, 16, 16),
+  new Block(1100, canvas.height - 80, 100, 20),
+  new Block(1200, canvas.height - 80, 100, 20),
+  new Coin(1200, canvas.height - 100, 16, 16),
   new Block(1400, canvas.height - 150, 100, 20),
   new Coin(1400, canvas.height - 170, 16, 16),
 
@@ -62,34 +61,46 @@ const gameObjects = [
   new Block(1800, canvas.height - 300, 100, 20),
   new Block(1900, canvas.height - 300, 100, 20),
   new Block(2000, canvas.height - 300, 100, 20),
-  new Enemy(0, canvas.height - 400, 64, 64, 2), // Adjusted size to match the new sprite
 
-  new Block(2300, canvas.height - 70, 100, 20),
+  new Block(2300, canvas.height - 80, 100, 20),
 
-  new Block(2500, canvas.height - 70, 100, 20),
+  new Block(2500, canvas.height - 80, 100, 20),
 
-  new Block(2700, canvas.height - 70, 100, 20),
-  new Block(2800, canvas.height - 70, 100, 20),
-  new Block(2900, canvas.height - 70, 100, 20),
+  new Block(2700, canvas.height - 80, 100, 20),
+  new Block(2800, canvas.height - 80, 100, 20),
+  new Block(2900, canvas.height - 80, 100, 20),
 
-  new Block(3000, canvas.height - 70, 100, 20),
-  new Block(3100, canvas.height - 70, 100, 20),
+  new Block(3000, canvas.height - 80, 100, 20),
+  new Block(3100, canvas.height - 80, 100, 20),
   new Block(3100, canvas.height - 280, 100, 20),
   new Block(3100, canvas.height - 460, 100, 20),
 
-  new Block(3200, canvas.height - 70, 100, 20),
+  new Block(3200, canvas.height - 80, 100, 20),
 
-  new Block(3300, canvas.height - 70, 100, 20),
+  new Block(3300, canvas.height - 80, 100, 20),
   new Block(3300, canvas.height - 190, 100, 20),
-  new Block(3300, canvas.height - 370, 100, 20),
 
+  new Block(3300, canvas.height - 370, 100, 20),
   new Block(3500, canvas.height - 370, 100, 20),
   new Block(3600, canvas.height - 370, 100, 20),
+  new Enemy(3600, canvas.height - 430),
+
   new Block(3700, canvas.height - 370, 100, 20),
+
 
   new Block(4100, canvas.height - 150, 100, 20),
   new Block(4200, canvas.height - 150, 100, 20),
   new Block(4300, canvas.height - 150, 100, 20),
+
+  new Block(4600, canvas.height - 100, 100, 20),
+  new Block(4700, canvas.height - 100, 100, 20),
+  new Block(4800, canvas.height - 100, 100, 20),
+  new Block(4900, canvas.height - 100, 100, 20),
+  new Enemy(4800, canvas.height - 160),
+
+
+  new Block(5000, canvas.height - 100, 100, 20),
+
 
 
 ];
@@ -131,6 +142,8 @@ function startScreen() {
 
   // Draw title with outline
   drawTextWithOutline("Loch NES", canvas.width / 2, canvas.height / 2 - 100, 50);
+
+  drawTextWithOutline("The Chronicles of Judith", canvas.width / 2, canvas.height / 2 - 50, 30);
 
   // Draw pulsing "Press any key to start" text with outline
   ctx.save();
