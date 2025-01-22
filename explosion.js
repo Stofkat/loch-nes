@@ -1,33 +1,45 @@
 export class Explosion {
-  constructor(x, y, numParticles = 20) {
-    this.particles = [];
-    this.numParticles = numParticles;
-
-    for (let i = 0; i < this.numParticles; i++) {
-      this.particles.push(this.createParticle(x, y));
-    }
+  constructor(x, y, particles) {
+    this.particles = particles;
   }
 
-  createParticle(x, y) {
-    const angle = Math.random() * 2 * Math.PI;
-    const speed = Math.random() * 5 + 2;
-    return {
-      x: x,
-      y: y,
-      dx: Math.cos(angle) * speed,
-      dy: Math.sin(angle) * speed,
-      life: Math.random() * 30 + 30,
-      size: Math.random() * 5 + 2,
-      color: `rgba(255, ${Math.floor(Math.random() * 255)}, 0, 1)`
-    };
+  static createParticles(x, y, width, height, imgTop, imgBottom) {
+    const particles = [];
+    const patternWidth = 50;
+    const patternHeight = 50;
+    const particlesPerElement = 5; // Increase the number of particles per element
+
+    for (let i = 0; i < width; i += patternWidth) {
+      for (let j = 0; j < height; j += patternHeight) {
+        const img = j < patternHeight ? imgTop : imgBottom;
+        for (let k = 0; k < particlesPerElement; k++) {
+          const angle = Math.random() * 2 * Math.PI;
+          const speed = Math.random() * 5 + 2;
+          particles.push({
+            x: x + i,
+            y: y + j,
+            dx: Math.cos(angle) * speed,
+            dy: Math.sin(angle) * speed,
+            life: Math.random() * 30 + 30,
+            size: patternWidth,
+            img: img
+          });
+        }
+      }
+    }
+
+    return particles;
   }
 
   draw(ctx, scrollOffset) {
     this.particles.forEach(particle => {
-      ctx.fillStyle = particle.color;
-      ctx.beginPath();
-      ctx.arc(particle.x - scrollOffset, particle.y, particle.size, 0, 2 * Math.PI);
-      ctx.fill();
+      ctx.drawImage(
+        particle.img,
+        particle.x - scrollOffset,
+        particle.y,
+        particle.size,
+        particle.size
+      );
     });
   }
 

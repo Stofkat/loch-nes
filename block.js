@@ -1,4 +1,5 @@
 import { GameObject } from "./gameObject.js";
+import { Explosion } from "./explosion.js";
 
 export class Block extends GameObject {
   constructor(x, y, width, height) {
@@ -16,12 +17,16 @@ export class Block extends GameObject {
 
     for (let i = 0; i < this.width; i += patternWidth) {
       for (let j = 0; j < this.height; j += patternHeight) {
-        if(j < patternHeight){
-        ctx.drawImage(this.imgTop, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
+        if (j < patternHeight) {
+          ctx.drawImage(this.imgTop, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
         } else {
-          ctx.drawImage(this.imgBottom, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight +5);
+          ctx.drawImage(this.imgBottom, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight + 5);
         }
       }
     }
+  }
+
+  createExplosion() {
+    return new Explosion(this.x, this.y, Explosion.createParticles(this.x, this.y, this.width, this.height, this.imgTop, this.imgBottom));
   }
 }

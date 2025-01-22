@@ -42,7 +42,7 @@ export class Nessie {
                   this.y + this.height > obj.y
               ) {
                   // Trigger explosion
-                  const explosion = new Explosion(obj.x + obj.width / 2, obj.y + obj.height / 2);
+                  const explosion = obj.createExplosion();
                   gameObjects.push(explosion);
 
                   // Remove the block
