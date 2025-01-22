@@ -5,6 +5,7 @@ import { Water } from "./water.js";
 import { Coin } from "./coin.js";
 import { Nessie } from "./nessie.js";
 import { Rain } from "./rain.js";
+import { Explosion } from "./explosion.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -96,7 +97,7 @@ const gameObjects = [
 
   new Block(5000, canvas.height - 100, 100, 20),
 
-  //new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
+  new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
 ];
 
 const waterBlocks = [];
@@ -203,9 +204,14 @@ function update(time) {
   player.draw(ctx);
 
   // Draw and update all game objects
-  gameObjects.forEach((obj) => {
+  gameObjects.forEach((obj, index) => {
     obj.draw(ctx, scrollOffset, gameObjects);
     if (obj.update) obj.update(gameObjects, scrollOffset);
+
+    // Remove explosion after animation
+    if (obj instanceof Explosion && !obj.isAlive()) {
+      gameObjects.splice(index, 1);
+    }
   });
 
   // Check player collision with blocks
