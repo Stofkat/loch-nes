@@ -25,7 +25,6 @@ const musicTitle = new Audio("./sound/title.mp3");
 musicTitle.play();
 musicTitle.loop = true;
 
-
 soundJump.volume = 0.3;
 
 // Load background image
@@ -85,7 +84,6 @@ const gameObjects = [
 
   new Block(3700, canvas.height - 370, 100, 20),
 
-
   new Block(4100, canvas.height - 150, 100, 20),
   new Block(4200, canvas.height - 150, 100, 20),
   new Block(4300, canvas.height - 150, 100, 20),
@@ -96,12 +94,9 @@ const gameObjects = [
   new Block(4900, canvas.height - 100, 100, 20),
   new Enemy(4800, canvas.height - 160),
 
-
   new Block(5000, canvas.height - 100, 100, 20),
 
   //new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
-
-
 ];
 
 const waterBlocks = [];
@@ -181,17 +176,6 @@ function update(time) {
   // Update player position
   player.update(keys, gravity, canvas);
 
-  // Scroll the world
-  if (keys["ArrowRight"]) {
-    scrollSpeed = player.speed;
-  } else if (keys["ArrowLeft"]) {
-    scrollSpeed = -player.speed;
-  } else {
-    scrollSpeed *= friction; // Apply friction to the scroll speed
-  }
-  scrollOffset += scrollSpeed;
-  backgroundScrollOffset += scrollSpeed * 0.25; // Parallax effect
-
   // Calculate scaling factor to maintain aspect ratio
   const scaleFactor = canvas.height / backgroundImage.height;
   const scaledWidth = backgroundImage.width * scaleFactor;
@@ -225,11 +209,27 @@ function update(time) {
   });
 
   // Check player collision with blocks
-  player.checkCollision(gameObjects, scrollOffset);
+  const playerCollision = player.checkCollision(gameObjects, scrollOffset);
 
   waterBlocks.forEach((water) => {
     water.draw(ctx, time);
   });
+
+  // Scroll the world
+  if (!playerCollision) {
+    if (keys["ArrowRight"]) {
+      scrollSpeed = player.speed;
+    } else if (keys["ArrowLeft"]) {
+      scrollSpeed = -player.speed;
+    } else {
+      scrollSpeed *= friction; // Apply friction to the scroll speed
+    }
+  } else {
+    scrollSpeed = -scrollSpeed;
+  }
+
+  scrollOffset += scrollSpeed;
+  backgroundScrollOffset += scrollSpeed * 0.25; // Parallax effect
 
   // Draw score
   ctx.font = '20px "Press Start 2P"'; // Use 8-bit font

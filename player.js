@@ -94,7 +94,8 @@ export class Player {
   }
 
   checkCollision(objects, scrollOffset) {
-    objects.forEach((gameObj) => {
+    let collision = false;
+    for(const gameObj of objects) {
       if (
         this.x + this.borderWidth < gameObj.x + gameObj.width - scrollOffset &&
         this.x + this.width - this.borderWidth > gameObj.x - scrollOffset &&
@@ -104,18 +105,16 @@ export class Player {
         if (gameObj instanceof Nessie && !this.isDead) {
           this.isDead = true;
           soundDeath.play();
-          return;
         }
 
-        if (gameObj instanceof Coin && !gameObj.collected) {
+        else if (gameObj instanceof Coin && !gameObj.collected) {
           soundCoin.play();
           this.score += 5;
           gameObj.collected = true;
-          return;
         }
 
         // Collision detected
-        if (this.dy > 0) {
+        else if (this.dy > 0) {
           // Falling
           this.y = gameObj.y - this.height;
           this.dy = 0;
@@ -123,10 +122,12 @@ export class Player {
           this.grounded = true;
         } else if (this.dy < 0) {
           // Jumping
-          this.y = gameObj.y + gameObj.height;
-          this.dy = 0;
+        } else {
+          collision = true;
         }
       }
-    });
+    }
+
+    return collision;
   }
 }
