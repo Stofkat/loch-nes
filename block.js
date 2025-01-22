@@ -19,7 +19,7 @@ export class Block extends GameObject {
         if(j < patternHeight){
         ctx.drawImage(this.imgTop, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
         } else {
-          ctx.drawImage(this.imgBottom, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
+          ctx.drawImage(this.imgBottom, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight +5);
         }
       }
     }
