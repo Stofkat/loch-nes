@@ -39,36 +39,34 @@ startScreenImage.src = "./assets/title1.png";
 const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
 
 const gameObjects = [
-  //new Nessie(-1000, canvas.height - 450, 800, 400, 3), // Nessie
-  new Block(200, canvas.height - 150, 100, 20),
-  new Block(400, canvas.height - 80, 100, 20),
-  new Block(500, canvas.height - 80, 100, 20),
-  new Block(600, canvas.height - 80, 100, 20),
+  new Block(200, canvas.height - 150, 100, 150),
+  new Block(400, canvas.height - 80, 100, 80),
+  new Block(500, canvas.height - 80, 100, 80),
+  new Block(600, canvas.height - 80, 100, 80),
   new Coin(600, canvas.height - 100, 16, 16),
-  new Block(700, canvas.height - 80, 100, 20),
-  new Block(600, canvas.height - 250, 100, 20),
+  new Block(700, canvas.height - 80, 100, 80),
+  new Block(600, canvas.height - 250, 100, 50),
 
-  new Block(900, canvas.height - 150, 100, 20),
+  new Block(900, canvas.height - 150, 100, 150),
   new Coin(900, canvas.height - 170, 16, 16),
 
-  new Block(1100, canvas.height - 80, 100, 20),
-  new Block(1200, canvas.height - 80, 100, 20),
+  new Block(1100, canvas.height - 80, 100, 80),
+  new Block(1200, canvas.height - 80, 100, 80),
   new Coin(1200, canvas.height - 100, 16, 16),
-  new Block(1400, canvas.height - 150, 100, 20),
+  new Block(1400, canvas.height - 150, 100, 150),
   new Coin(1400, canvas.height - 170, 16, 16),
 
-  new Block(1600, canvas.height - 200, 100, 20),
-  new Block(1800, canvas.height - 300, 100, 20),
-  new Block(1900, canvas.height - 300, 100, 20),
-  new Block(2000, canvas.height - 300, 100, 20),
+  new Block(1600, canvas.height - 200, 100, 200),
+  new Block(1800, canvas.height - 300, 100, 300),
+  new Block(1900, canvas.height - 300, 100, 300),
+  new Block(2000, canvas.height - 300, 100, 300),
 
-  new Block(2300, canvas.height - 80, 100, 20),
+  new Block(2300, canvas.height - 80, 100, 80),
+  new Block(2500, canvas.height - 80, 100, 80),
 
-  new Block(2500, canvas.height - 80, 100, 20),
-
-  new Block(2700, canvas.height - 80, 100, 20),
-  new Block(2800, canvas.height - 80, 100, 20),
-  new Block(2900, canvas.height - 80, 100, 20),
+  new Block(2700, canvas.height - 80, 100, 80),
+  new Block(2800, canvas.height - 80, 100, 80),
+  new Block(2900, canvas.height - 80, 100, 80),
 
   new Block(3000, canvas.height - 80, 100, 20),
   new Block(3100, canvas.height - 80, 100, 20),
@@ -101,6 +99,7 @@ const gameObjects = [
 
   new Block(5000, canvas.height - 100, 100, 20),
 
+  //new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
 
 
 ];
@@ -143,7 +142,7 @@ function startScreen() {
   // Draw title with outline
   drawTextWithOutline("Loch NES", canvas.width / 2, canvas.height / 2 - 100, 50);
 
-  drawTextWithOutline("The Chronicles of Judith", canvas.width / 2, canvas.height / 2 - 50, 30);
+  drawTextWithOutline("The Adventures of Judith", canvas.width / 2, canvas.height / 2 - 50, 30);
 
   // Draw pulsing "Press any key to start" text with outline
   ctx.save();
@@ -221,7 +220,7 @@ function update(time) {
 
   // Draw and update all game objects
   gameObjects.forEach((obj) => {
-    obj.draw(ctx, scrollOffset);
+    obj.draw(ctx, scrollOffset, gameObjects);
     if (obj.update) obj.update(gameObjects, scrollOffset);
   });
 

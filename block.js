@@ -3,8 +3,11 @@ import { GameObject } from "./gameObject.js";
 export class Block extends GameObject {
   constructor(x, y, width, height) {
     super(x, y, width, height);
-    this.image = new Image();
-    this.image.src = '/assets/block.png';
+    this.imgTop = new Image();
+    this.imgTop.src = '/assets/block.png';
+
+    this.imgBottom = new Image();
+    this.imgBottom.src = '/assets/dirt.png';
   }
 
   draw(ctx, scrollOffset) {
@@ -13,7 +16,11 @@ export class Block extends GameObject {
 
     for (let i = 0; i < this.width; i += patternWidth) {
       for (let j = 0; j < this.height; j += patternHeight) {
-        ctx.drawImage(this.image, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
+        if(j < patternHeight){
+        ctx.drawImage(this.imgTop, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
+        } else {
+          ctx.drawImage(this.imgBottom, this.x - scrollOffset + i, this.y + j, patternWidth, patternHeight);
+        }
       }
     }
   }
