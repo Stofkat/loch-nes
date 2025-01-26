@@ -36,77 +36,88 @@ backgroundImage.src = "./assets/background.png";
 const startScreenImage = new Image();
 startScreenImage.src = "./assets/title1.png";
 
-const player = new Player(canvas.width / 2 - 16, canvas.height - 150); // Adjust width and height to match sprite frame size
+let player = new Player(canvas.width / 2 - 16, canvas.height - 150);
 
-const gameObjects = [
-  new Block(200, canvas.height - 150, 100, 150),
-  new Block(400, canvas.height - 80, 100, 80),
-  new Block(500, canvas.height - 80, 100, 80),
-  new Block(600, canvas.height - 80, 100, 80),
-  new Coin(600, canvas.height - 100, 16, 16),
-  new Block(700, canvas.height - 80, 100, 80),
-  new Block(600, canvas.height - 250, 100, 50),
+let gameObjects = [];
+let waterBlocks = [];
 
-  new Block(900, canvas.height - 150, 100, 150),
-  new Coin(900, canvas.height - 170, 16, 16),
+const createLevel = () => {
+  gameObjects = [
+    new Block(200, canvas.height - 150, 100, 150),
+    new Block(400, canvas.height - 80, 100, 80),
+    new Block(500, canvas.height - 80, 100, 80),
+    new Block(600, canvas.height - 80, 100, 80),
+    new Coin(600, canvas.height - 100, 16, 16),
+    new Block(700, canvas.height - 80, 100, 80),
+    new Block(600, canvas.height - 250, 100, 50),
 
-  new Block(1100, canvas.height - 80, 100, 80),
-  new Block(1200, canvas.height - 80, 100, 80),
-  new Coin(1200, canvas.height - 100, 16, 16),
-  new Block(1400, canvas.height - 150, 100, 150),
-  new Coin(1400, canvas.height - 170, 16, 16),
+    new Block(900, canvas.height - 150, 100, 150),
+    new Coin(900, canvas.height - 170, 16, 16),
 
-  new Block(1600, canvas.height - 200, 100, 200),
-  new Block(1800, canvas.height - 300, 100, 300),
-  new Block(1900, canvas.height - 300, 100, 300),
-  new Block(2000, canvas.height - 300, 100, 300),
+    new Block(1100, canvas.height - 80, 100, 80),
+    new Block(1200, canvas.height - 80, 100, 80),
+    new Coin(1200, canvas.height - 100, 16, 16),
+    new Block(1400, canvas.height - 150, 100, 150),
+    new Coin(1400, canvas.height - 170, 16, 16),
 
-  new Block(2300, canvas.height - 80, 100, 80),
-  new Block(2500, canvas.height - 80, 100, 80),
+    new Block(1600, canvas.height - 200, 100, 200),
+    new Block(1800, canvas.height - 300, 100, 300),
+    new Block(1900, canvas.height - 300, 100, 300),
+    new Block(2000, canvas.height - 300, 100, 300),
 
-  new Block(2700, canvas.height - 80, 100, 80),
-  new Block(2800, canvas.height - 80, 100, 80),
-  new Block(2900, canvas.height - 80, 100, 80),
+    new Block(2300, canvas.height - 80, 100, 80),
+    new Block(2500, canvas.height - 80, 100, 80),
 
-  new Block(3000, canvas.height - 80, 100, 20),
-  new Block(3100, canvas.height - 80, 100, 20),
-  new Block(3100, canvas.height - 280, 100, 20),
-  new Block(3100, canvas.height - 460, 100, 20),
+    new Block(2700, canvas.height - 80, 100, 80),
+    new Block(2800, canvas.height - 80, 100, 80),
+    new Block(2900, canvas.height - 80, 100, 80),
 
-  new Block(3200, canvas.height - 80, 100, 20),
+    new Block(3000, canvas.height - 80, 100, 20),
+    new Block(3100, canvas.height - 80, 100, 20),
+    new Block(3100, canvas.height - 280, 100, 20),
+    new Block(3100, canvas.height - 460, 100, 20),
 
-  new Block(3300, canvas.height - 80, 100, 20),
-  new Block(3300, canvas.height - 190, 100, 20),
+    new Block(3200, canvas.height - 80, 100, 20),
 
-  new Block(3300, canvas.height - 370, 100, 20),
-  new Block(3500, canvas.height - 370, 100, 20),
-  new Block(3600, canvas.height - 370, 100, 20),
-  new Enemy(3600, canvas.height - 430),
+    new Block(3300, canvas.height - 80, 100, 20),
+    new Block(3300, canvas.height - 190, 100, 20),
 
-  new Block(3700, canvas.height - 370, 100, 20),
+    new Block(3300, canvas.height - 370, 100, 20),
+    new Block(3500, canvas.height - 370, 100, 20),
+    new Block(3600, canvas.height - 370, 100, 20),
+    new Enemy(3600, canvas.height - 430),
 
-  new Block(4100, canvas.height - 150, 100, 20),
-  new Block(4200, canvas.height - 150, 100, 20),
-  new Block(4300, canvas.height - 150, 100, 20),
+    new Block(3700, canvas.height - 370, 100, 20),
 
-  new Block(4600, canvas.height - 100, 100, 20),
-  new Block(4700, canvas.height - 100, 100, 20),
-  new Block(4800, canvas.height - 100, 100, 20),
-  new Block(4900, canvas.height - 100, 100, 20),
-  new Enemy(4800, canvas.height - 160),
+    new Block(4100, canvas.height - 150, 100, 20),
+    new Block(4200, canvas.height - 150, 100, 20),
+    new Block(4300, canvas.height - 150, 100, 20),
 
-  new Block(5000, canvas.height - 100, 100, 20),
+    new Block(4600, canvas.height - 100, 100, 20),
+    new Block(4700, canvas.height - 100, 100, 20),
+    new Block(4800, canvas.height - 100, 100, 20),
+    new Block(4900, canvas.height - 100, 100, 20),
+    new Enemy(4800, canvas.height - 160),
 
-  new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
-];
+    new Block(5000, canvas.height - 100, 100, 20),
 
-const waterBlocks = [];
-for (let i = 0; i < canvas.width * 2; i += 32) {
-  waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC"));
-}
+    new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
+  ];
 
-const rain = new Rain(canvas, 100); // Create rain effect with 100 drops
-gameObjects.push(rain);
+  for (let i = 0; i < canvas.width * 2; i += 32) {
+    waterBlocks.push(new Water(i, canvas.height - 60, 32, 20, 7, 0.02, "#3333FFCC"));
+  }
+
+  const rain = new Rain(canvas, 100); // create rain effect with 100 drops
+  gameObjects.push(rain);
+  
+};
+
+
+createLevel();
+
+
+
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
@@ -165,6 +176,8 @@ function update(time) {
   // Check for game over state
   if (player.isDead) {
     gameStarted = false;
+    player = new Player(canvas.width / 2 - 16, canvas.height - 150);
+    createLevel();
     musicLevel.pause();
     musicLevel.currentTime = 0;
     musicTitle.play();

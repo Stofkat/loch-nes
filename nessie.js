@@ -1,5 +1,5 @@
 import { Block } from "./block.js";
-import { Explosion } from './explosion.js';
+import { Enemy } from "./enemy.js";
 
 export class Nessie {
   constructor(x, y, width, height, speed) {
@@ -34,21 +34,35 @@ export class Nessie {
 
       // Check for collision with blocks
       gameObjects.forEach((obj, index) => {
-          if (obj instanceof Block) {
               if (
                   this.x < obj.x + obj.width  &&
                   this.x + this.width > obj.x  &&
                   this.y < obj.y + obj.height &&
                   this.y + this.height > obj.y
               ) {
+                if (obj instanceof Block) {
+
                   // Trigger explosion
+                  const soundExplosion = new Audio("./sound/explosion.wav");
+                  soundExplosion.play();
                   const explosion = obj.createExplosion();
                   gameObjects.push(explosion);
 
+
                   // Remove the block
                   gameObjects.splice(index, 1);
-              }
+                }
+
+                if(obj instanceof Enemy) {
+                    const soundExplosion = new Audio("./sound/gnome.mp3");
+                    soundExplosion.play();
+                    gameObjects.splice(index, 1);
+    
+                  }
+              
           }
+
+
       });
   }
 
