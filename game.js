@@ -7,6 +7,7 @@ import { Nessie } from "./nessie.js";
 import { Rain } from "./rain.js";
 import { Explosion } from "./explosion.js";
 import { StartScreen } from "./startScreen.js";
+import { GameOverScreen } from "./gameOverScreen.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -124,8 +125,10 @@ let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
 let gameStarted = false; // Track if the game has started
+let gameOver = false; // Track if the game is over
 
 const startScreen = new StartScreen(canvas, ctx);
+const gameOverScreen = new GameOverScreen(canvas, ctx);
 
 function update(time) {
   if (!gameStarted) {
@@ -134,11 +137,15 @@ function update(time) {
     return;
   }
 
+  if (gameOver) {
+    gameOverScreen.draw(player.score);
+    requestAnimationFrame(update);
+    return;
+  }
+
   // Check for game over state
   if (player.isDead) {
-    gameStarted = false;
-    player = new Player(canvas.width / 2 - 16, canvas.height - 150);
-    createLevel();
+    gameOver = true;
     musicLevel.pause();
     musicLevel.currentTime = 0;
     musicTitle.play();
@@ -221,6 +228,9 @@ function update(time) {
 
 function startGame() {
   gameStarted = true;
+  gameOver = false;
+  player = new Player(canvas.width / 2 - 16, canvas.height - 150);
+  createLevel();
   musicTitle.pause();
   musicTitle.currentTime = 0;
   musicLevel.play();
@@ -229,6 +239,8 @@ function startGame() {
 
 document.addEventListener("keydown", (e) => {
   if (!gameStarted) {
+    startGame();
+  } else if (gameOver) {
     startGame();
   }
   keys[e.key] = true;
@@ -263,6 +275,8 @@ document.getElementById("buttonA").addEventListener("touchstart", () => {
 });
 document.getElementById("buttonA").addEventListener("touchend", () => {
   if (!gameStarted) {
+    startGame();
+  } else if (gameOver) {
     startGame();
   }
   keys[" "] = false;
