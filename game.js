@@ -20,6 +20,7 @@ backgroundCanvas.height = canvas.height;
 const gravity = 0.5;
 const friction = 0.8;
 const keys = {};
+let nessieIsAlive = false;
 
 // Load sound effects
 const soundJump = new Audio("./sound/jump.wav");
@@ -103,7 +104,6 @@ const createLevel = () => {
 
     new Block(5000, canvas.height - 100, 100, 20),
 
-    new Nessie(-1000, canvas.height - 400, 800, 400, 3), // Nessie
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -117,8 +117,6 @@ const createLevel = () => {
 
 
 createLevel();
-
-
 
 
 let scrollOffset = 0;
@@ -143,12 +141,19 @@ function update(time) {
     return;
   }
 
+  console.log('scrollOffset', scrollOffset);
+  if(scrollOffset > 5000 && !nessieIsAlive){
+    nessieIsAlive = true;
+    gameObjects.push(new Nessie(4000, canvas.height - 400, 800, 400, 3));
+  }
+
   // Check for game over state
   if (player.isDead) {
     gameOver = true;
     musicLevel.pause();
     musicLevel.currentTime = 0;
     musicTitle.play();
+    requestAnimationFrame(update);
     return;
   }
 
@@ -234,7 +239,6 @@ function startGame() {
   musicTitle.pause();
   musicTitle.currentTime = 0;
   musicLevel.play();
-  update();
 }
 
 document.addEventListener("keydown", (e) => {
