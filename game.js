@@ -50,12 +50,12 @@ const createLevel = () => {
     new Block(400, canvas.height - 80, 100, 80),
     new Block(500, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 80, 100, 80),
-    new Coin(650, canvas.height - 100, 16, 16), 
+    new Coin(640, canvas.height - 270, 16, 16), 
     new Block(700, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 250, 100, 50),
 
     new Block(900, canvas.height - 150, 100, 150),
-    new Coin(950, canvas.height - 170, 16, 16), 
+    new Coin(940, canvas.height - 170, 16, 16), 
 
     new Block(1100, canvas.height - 80, 100, 80),
     new Block(1200, canvas.height - 80, 100, 80),
@@ -110,24 +110,53 @@ const createLevel = () => {
     new Coin(4150, canvas.height - 170, 16, 16), 
     new Coin(4150, canvas.height - 210, 16, 16), 
 
-    new Block(4200, canvas.height - 150, 100, 20),
+    new Block(4200, canvas.height - 150, 100, 150),
     new Coin(4250, canvas.height - 170, 16, 16), 
     new Coin(4250, canvas.height - 210, 16, 16), 
 
-    new Block(4300, canvas.height - 150, 100, 20),
+    new Block(4300, canvas.height - 150, 100, 150),
     new Coin(4350, canvas.height - 170, 16, 16), 
     new Coin(4350, canvas.height - 210, 16, 16), 
 
-    new Block(4600, canvas.height - 100, 100, 20),
+    new Block(4600, canvas.height - 100, 100, 100),
     new Coin(4600, canvas.height - 120, 16, 16), 
-    new Block(4700, canvas.height - 100, 100, 20),
-    new Block(4800, canvas.height - 100, 100, 20),
+    new Block(4700, canvas.height - 100, 100, 100),
+    new Block(4800, canvas.height - 100, 100, 100),
     new Coin(4800, canvas.height - 120, 16, 16), 
-    new Block(4900, canvas.height - 100, 100, 20),
+    new Block(4900, canvas.height - 100, 100, 100),
     new Enemy(4800, canvas.height - 160),
 
-    new Block(5000, canvas.height - 100, 100, 20),
+    new Block(5000, canvas.height - 100, 100, 100),
     new Coin(5000, canvas.height - 120, 16, 16), 
+    
+    // Nessie spawns
+    new Block(5100, canvas.height - 100, 100, 100),
+    new Block(5200, canvas.height - 100, 100, 100),
+    new Block(5300, canvas.height - 100, 100, 100),
+    new Block(5400, canvas.height - 100, 100, 100),
+    new Block(5500, canvas.height - 100, 100, 100),
+
+    new Block(5800, canvas.height - 100, 100, 100),
+    new Block(5900, canvas.height - 100, 100, 100),
+
+    new Block(6100, canvas.height - 100, 100, 100),
+    new Block(6200, canvas.height - 100, 100, 100),
+
+    new Block(6400, canvas.height - 100, 100, 100),
+    new Block(6500, canvas.height - 100, 100, 100),
+
+
+    new Block(6700, canvas.height - 100, 100, 100),
+    new Block(6800, canvas.height - 100, 100, 100),
+    new Block(6900, canvas.height - 100, 100, 100),
+    new Block(7000, canvas.height - 200, 100, 200),
+    new Block(7100, canvas.height - 100, 100, 100),
+    new Block(7200, canvas.height - 100, 100, 100),
+    new Block(7300, canvas.height - 300, 100, 300),
+    new Block(7400, canvas.height - 100, 100, 100),
+    new Block(7500, canvas.height - 100, 100, 100),
+    new Block(7600, canvas.height - 400, 100, 400),
+
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
