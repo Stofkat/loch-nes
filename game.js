@@ -6,6 +6,7 @@ import { Coin } from "./coin.js";
 import { Nessie } from "./nessie.js";
 import { Rain } from "./rain.js";
 import { Explosion } from "./explosion.js";
+import { StartScreen } from "./startScreen.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -124,52 +125,12 @@ let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
 let gameStarted = false; // Track if the game has started
 
-let pulseDirection = 1;
-const pulseSpeed = 0.01; // Reduce the speed to half
-
-let pulseAlpha = 1;
-pulseDirection = -1;
-const minAlpha = 0.3;
-const maxAlpha = 1;
-
-function drawTextWithOutline(text, x, y, fontSize) {
-  ctx.font = `${fontSize}px "Press Start 2P"`; // Use 8-bit font
-  ctx.textAlign = "center";
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = "black";
-  ctx.strokeText(text, x, y);
-  ctx.fillStyle = "white";
-  ctx.fillText(text, x, y);
-}
-
-function startScreen() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(startScreenImage, 0, 0, canvas.width, canvas.height); // Draw scenic background
-
-  // Draw title with outline
-  drawTextWithOutline("Loch NES", canvas.width / 2, canvas.height / 2 - 100, 50);
-
-  drawTextWithOutline("The Adventures of Judith", canvas.width / 2, canvas.height / 2 - 50, 30);
-
-  // Draw pulsing "Press any key to start" text with outline
-  ctx.save();
-  ctx.globalAlpha = pulseAlpha;
-  ctx.translate(canvas.width / 2, canvas.height / 2 + 100);
-  drawTextWithOutline("Press any key to start", 0, 0, 20);
-  ctx.restore();
-
-  // Update pulse alpha
-  pulseAlpha += pulseSpeed * pulseDirection;
-  if (pulseAlpha > maxAlpha || pulseAlpha < minAlpha) {
-    pulseDirection *= -1;
-  }
-
-  requestAnimationFrame(startScreen);
-}
+const startScreen = new StartScreen(canvas, ctx);
 
 function update(time) {
   if (!gameStarted) {
-    startScreen();
+    startScreen.draw();
+    requestAnimationFrame(update);
     return;
   }
 
@@ -307,4 +268,4 @@ document.getElementById("buttonA").addEventListener("touchend", () => {
   keys[" "] = false;
 });
 
-startScreen(); // Show start screen initially
+update(); // Start the game loop
