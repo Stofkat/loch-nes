@@ -50,60 +50,84 @@ const createLevel = () => {
     new Block(400, canvas.height - 80, 100, 80),
     new Block(500, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 80, 100, 80),
-    new Coin(600, canvas.height - 100, 16, 16),
+    new Coin(650, canvas.height - 100, 16, 16), 
     new Block(700, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 250, 100, 50),
 
     new Block(900, canvas.height - 150, 100, 150),
-    new Coin(900, canvas.height - 170, 16, 16),
+    new Coin(950, canvas.height - 170, 16, 16), 
 
     new Block(1100, canvas.height - 80, 100, 80),
     new Block(1200, canvas.height - 80, 100, 80),
-    new Coin(1200, canvas.height - 100, 16, 16),
+    new Coin(1250, canvas.height - 100, 16, 16), 
     new Block(1400, canvas.height - 150, 100, 150),
-    new Coin(1400, canvas.height - 170, 16, 16),
+    new Coin(1450, canvas.height - 170, 16, 16), 
 
     new Block(1600, canvas.height - 200, 100, 200),
+    new Coin(1650, canvas.height - 220, 16, 16), 
     new Block(1800, canvas.height - 300, 100, 300),
+    new Coin(1850, canvas.height - 320, 16, 16), 
     new Block(1900, canvas.height - 300, 100, 300),
+    new Coin(1950, canvas.height - 320, 16, 16), 
     new Block(2000, canvas.height - 300, 100, 300),
+    new Coin(2050, canvas.height - 320, 16, 16), 
 
     new Block(2300, canvas.height - 80, 100, 80),
+    new Coin(2350, canvas.height - 100, 16, 16), 
     new Block(2500, canvas.height - 80, 100, 80),
+    new Coin(2550, canvas.height - 100, 16, 16), 
 
     new Block(2700, canvas.height - 80, 100, 80),
+    new Coin(2750, canvas.height - 100, 16, 16), 
     new Block(2800, canvas.height - 80, 100, 80),
     new Block(2900, canvas.height - 80, 100, 80),
+    new Coin(2950, canvas.height - 100, 16, 16), 
 
     new Block(3000, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 280, 100, 20),
+    new Coin(3150, canvas.height - 300, 16, 16), 
+
     new Block(3100, canvas.height - 460, 100, 20),
+    new Coin(3150, canvas.height - 480, 16, 16), 
 
     new Block(3200, canvas.height - 80, 100, 20),
 
     new Block(3300, canvas.height - 80, 100, 20),
     new Block(3300, canvas.height - 190, 100, 20),
+    new Coin(3350, canvas.height - 210, 16, 16), 
 
     new Block(3300, canvas.height - 370, 100, 20),
     new Block(3500, canvas.height - 370, 100, 20),
+    new Coin(3550, canvas.height - 390, 16, 16), 
     new Block(3600, canvas.height - 370, 100, 20),
     new Enemy(3600, canvas.height - 430),
 
     new Block(3700, canvas.height - 370, 100, 20),
+    new Coin(3700, canvas.height - 390, 16, 16), 
 
     new Block(4100, canvas.height - 150, 100, 20),
+    new Coin(4150, canvas.height - 170, 16, 16), 
+    new Coin(4150, canvas.height - 210, 16, 16), 
+
     new Block(4200, canvas.height - 150, 100, 20),
+    new Coin(4250, canvas.height - 170, 16, 16), 
+    new Coin(4250, canvas.height - 210, 16, 16), 
+
     new Block(4300, canvas.height - 150, 100, 20),
+    new Coin(4350, canvas.height - 170, 16, 16), 
+    new Coin(4350, canvas.height - 210, 16, 16), 
 
     new Block(4600, canvas.height - 100, 100, 20),
+    new Coin(4600, canvas.height - 120, 16, 16), 
     new Block(4700, canvas.height - 100, 100, 20),
     new Block(4800, canvas.height - 100, 100, 20),
+    new Coin(4800, canvas.height - 120, 16, 16), 
     new Block(4900, canvas.height - 100, 100, 20),
     new Enemy(4800, canvas.height - 160),
 
     new Block(5000, canvas.height - 100, 100, 20),
-
+    new Coin(5000, canvas.height - 120, 16, 16), 
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -112,12 +136,9 @@ const createLevel = () => {
 
   const rain = new Rain(canvas, 100); // create rain effect with 100 drops
   gameObjects.push(rain);
-  
 };
 
-
 createLevel();
-
 
 let scrollOffset = 0;
 let scrollSpeed = 0;
