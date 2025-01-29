@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Body -->
+  <rect x="8" y="32" width="48" height="16" fill="#228B22" />
+  <!-- Neck -->
+  <rect x="40" y="16" width="8" height="16" fill="#228B22" />
+  <!-- Head -->
+  <rect x="36" y="8" width="16" height="8" fill="#228B22" />
+  <!-- Eye -->
+  <rect x="48" y="10" width="2" height="2" fill="#000000" />
+  <!-- Fins -->
+  <rect x="12" y="48" width="8" height="4" fill="#228B22" />
+  <rect x="44" y="48" width="8" height="4" fill="#228B22" />
+  <!-- Details -->
+  <rect x="10" y="34" width="2" height="2" fill="#006400" />
+  <rect x="14" y="36" width="2" height="2" fill="#006400" />
+  <rect x="18" y="38" width="2" height="2" fill="#006400" />
+  <rect x="22" y="40" width="2" height="2" fill="#006400" />
+  <rect x="26" y="42" width="2" height="2" fill="#006400" />
+  <rect x="30" y="44" width="2" height="2" fill="#006400" />
+  <rect x="34" y="46" width="2" height="2" fill="#006400" />
+  <rect x="38" y="48" width="2" height="2" fill="#006400" />
+</svg>

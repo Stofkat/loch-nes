@@ -1,0 +1,118 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+  flex-direction: column;
+
+}
+
+canvas {
+  border: 1px solid #000;
+}
+
+.crt-container {
+  width: 100%;
+  height: 100%;
+  margin-left: unset;
+}
+
+ #gameCanvas {
+  width: 100%;
+  height: 100%;
+}
+
+.container-console {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.controls-left {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.controls-right {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 50%;
+  margin: auto;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+body.mobile .controls-left {
+  display: flex;
+}
+
+body.mobile .controls-right {
+  display: flex;
+}
+
+.joypad {
+  display: grid;
+  grid-template-areas:
+    ". up ."
+    "left . right"
+    ". down .";
+}
+
+.button {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-family: "Press Start 2P", cursive;
+  color: black;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.mobile-controls .button:active {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.joypad .button:active {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.joypad .button#up {
+  grid-area: up;
+}
+
+.joypad .button#down {
+  grid-area: down;
+}
+
+.joypad .button#left {
+  grid-area: left;
+}
+
+.joypad .button#right {
+  grid-area: right;
+}
+
+#startMessage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-family: "Press Start 2P", cursive;
+  text-align: center;
+}
