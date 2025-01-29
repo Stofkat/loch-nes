@@ -3,11 +3,11 @@ import { Block } from "./block.js";
 import { Enemy } from "./enemy.js";
 import { Water } from "./water.js";
 import { Coin } from "./coin.js";
-import { Nessie } from "./nessie.js";
 import { Rain } from "./rain.js";
 import { Explosion } from "./explosion.js";
 import { StartScreen } from "./startScreen.js";
 import { GameOverScreen } from "./gameOverScreen.js";
+import { Treasure } from "./treasure.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -20,10 +20,10 @@ backgroundCanvas.height = canvas.height;
 const gravity = 0.5;
 const friction = 0.8;
 const keys = {};
-let nessieIsAlive = false;
 
 // Load sound effects
 const soundJump = new Audio("./sound/jump.wav");
+
 const musicLevel = new Audio("./sound/level.mp3");
 const musicTitle = new Audio("./sound/title.mp3");
 musicTitle.play();
@@ -50,86 +50,88 @@ const createLevel = () => {
     new Block(400, canvas.height - 80, 100, 80),
     new Block(500, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 80, 100, 80),
-    new Coin(640, canvas.height - 270, 16, 16), 
+    new Coin(640, canvas.height - 270, 16, 16),
     new Block(700, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 250, 100, 50),
 
     new Block(900, canvas.height - 150, 100, 150),
-    new Coin(940, canvas.height - 170, 16, 16), 
+    new Coin(940, canvas.height - 170, 16, 16),
 
     new Block(1100, canvas.height - 80, 100, 80),
     new Block(1200, canvas.height - 80, 100, 80),
-    new Coin(1250, canvas.height - 100, 16, 16), 
+    new Coin(1250, canvas.height - 100, 16, 16),
     new Block(1400, canvas.height - 150, 100, 150),
-    new Coin(1450, canvas.height - 170, 16, 16), 
+    new Coin(1450, canvas.height - 170, 16, 16),
 
     new Block(1600, canvas.height - 200, 100, 200),
-    new Coin(1650, canvas.height - 220, 16, 16), 
+    new Coin(1650, canvas.height - 220, 16, 16),
     new Block(1800, canvas.height - 300, 100, 300),
-    new Coin(1850, canvas.height - 320, 16, 16), 
+    new Coin(1850, canvas.height - 320, 16, 16),
     new Block(1900, canvas.height - 300, 100, 300),
-    new Coin(1950, canvas.height - 320, 16, 16), 
+    new Coin(1950, canvas.height - 320, 16, 16),
     new Block(2000, canvas.height - 300, 100, 300),
-    new Coin(2050, canvas.height - 320, 16, 16), 
+    new Coin(2050, canvas.height - 320, 16, 16),
 
     new Block(2300, canvas.height - 80, 100, 80),
-    new Coin(2350, canvas.height - 100, 16, 16), 
+    new Coin(2350, canvas.height - 100, 16, 16),
     new Block(2500, canvas.height - 80, 100, 80),
-    new Coin(2550, canvas.height - 100, 16, 16), 
+    new Coin(2550, canvas.height - 100, 16, 16),
 
     new Block(2700, canvas.height - 80, 100, 80),
-    new Coin(2750, canvas.height - 100, 16, 16), 
+    new Coin(2750, canvas.height - 100, 16, 16),
     new Block(2800, canvas.height - 80, 100, 80),
     new Block(2900, canvas.height - 80, 100, 80),
-    new Coin(2950, canvas.height - 100, 16, 16), 
+    new Coin(2950, canvas.height - 100, 16, 16),
 
     new Block(3000, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 280, 100, 20),
-    new Coin(3150, canvas.height - 300, 16, 16), 
+    new Coin(3150, canvas.height - 300, 16, 16),
 
     new Block(3100, canvas.height - 460, 100, 20),
-    new Coin(3150, canvas.height - 480, 16, 16), 
+    new Coin(3150, canvas.height - 480, 16, 16),
 
     new Block(3200, canvas.height - 80, 100, 20),
 
     new Block(3300, canvas.height - 80, 100, 20),
     new Block(3300, canvas.height - 190, 100, 20),
-    new Coin(3350, canvas.height - 210, 16, 16), 
+    new Coin(3350, canvas.height - 210, 16, 16),
 
     new Block(3300, canvas.height - 370, 100, 20),
     new Block(3500, canvas.height - 370, 100, 20),
-    new Coin(3550, canvas.height - 390, 16, 16), 
+    new Coin(3550, canvas.height - 390, 16, 16),
     new Block(3600, canvas.height - 370, 100, 20),
     new Enemy(3600, canvas.height - 430),
 
     new Block(3700, canvas.height - 370, 100, 20),
-    new Coin(3700, canvas.height - 390, 16, 16), 
+    new Coin(3700, canvas.height - 390, 16, 16),
 
     new Block(4100, canvas.height - 150, 100, 20),
-    new Coin(4150, canvas.height - 170, 16, 16), 
-    new Coin(4150, canvas.height - 210, 16, 16), 
+    new Coin(4150, canvas.height - 170, 16, 16),
+    new Coin(4150, canvas.height - 210, 16, 16),
 
     new Block(4200, canvas.height - 150, 100, 150),
-    new Coin(4250, canvas.height - 170, 16, 16), 
-    new Coin(4250, canvas.height - 210, 16, 16), 
+    new Coin(4250, canvas.height - 170, 16, 16),
+    new Coin(4250, canvas.height - 210, 16, 16),
 
     new Block(4300, canvas.height - 150, 100, 150),
-    new Coin(4350, canvas.height - 170, 16, 16), 
-    new Coin(4350, canvas.height - 210, 16, 16), 
+    new Coin(4350, canvas.height - 170, 16, 16),
+    new Coin(4350, canvas.height - 210, 16, 16),
 
     new Block(4600, canvas.height - 100, 100, 100),
-    new Coin(4600, canvas.height - 120, 16, 16), 
+    new Coin(4600, canvas.height - 120, 16, 16),
     new Block(4700, canvas.height - 100, 100, 100),
     new Block(4800, canvas.height - 100, 100, 100),
-    new Coin(4800, canvas.height - 120, 16, 16), 
+    new Coin(4800, canvas.height - 120, 16, 16),
     new Block(4900, canvas.height - 100, 100, 100),
     new Enemy(4800, canvas.height - 160),
 
     new Block(5000, canvas.height - 100, 100, 100),
-    new Coin(5000, canvas.height - 120, 16, 16), 
-    
-    // Nessie spawns
+    new Coin(5000, canvas.height - 120, 16, 16),
+
+    // Nessie spawns after picking up the treasure
+    new Treasure(5100, canvas.height - 150, 50, 50),
+
     new Block(5100, canvas.height - 100, 100, 100),
     new Block(5200, canvas.height - 100, 100, 100),
     new Block(5300, canvas.height - 100, 100, 100),
@@ -145,7 +147,6 @@ const createLevel = () => {
     new Block(6400, canvas.height - 100, 100, 100),
     new Block(6500, canvas.height - 100, 100, 100),
 
-
     new Block(6700, canvas.height - 100, 100, 100),
     new Block(6800, canvas.height - 100, 100, 100),
     new Block(6900, canvas.height - 100, 100, 100),
@@ -156,7 +157,6 @@ const createLevel = () => {
     new Block(7400, canvas.height - 100, 100, 100),
     new Block(7500, canvas.height - 100, 100, 100),
     new Block(7600, canvas.height - 400, 100, 400),
-
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -191,11 +191,6 @@ function update(time) {
     return;
   }
 
-  console.log('scrollOffset', scrollOffset);
-  if(scrollOffset > 5000 && !nessieIsAlive){
-    nessieIsAlive = true;
-    gameObjects.push(new Nessie(4500, canvas.height - 400, 800, 400, 3));
-  }
 
   // Check for game over state
   if (player.isDead) {
@@ -285,6 +280,10 @@ function startGame() {
   gameStarted = true;
   gameOver = false;
   player = new Player(canvas.width / 2 - 16, canvas.height - 150);
+  scrollOffset = 0;
+  scrollSpeed = 0;
+  backgroundScrollOffset = 0;
+
   createLevel();
   musicTitle.pause();
   musicTitle.currentTime = 0;

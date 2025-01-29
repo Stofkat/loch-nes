@@ -1,8 +1,10 @@
 import { Coin } from "./coin.js";
 import { Nessie } from "./nessie.js";
+import { Treasure } from "./treasure.js";
 
 const soundCoin = new Audio("./sound/coin.wav");
 const soundDeath = new Audio("./sound/death.wav");
+const soundNessie = new Audio("./sound/nessie.wav");
 
 export class Player {
   constructor(x, y) {
@@ -115,6 +117,16 @@ export class Player {
             this.score += 5;
             gameObj.collected = true;
           }
+        }
+        else if (gameObj instanceof Treasure) {
+          if (!gameObj.collected) {
+            gameObj.collected = true;
+            this.score += 100;
+            objects.push(new Nessie(4000, 200, 800, 400, 3));
+            soundNessie.play();
+
+          }
+
         }
         // Collision detected
         else if (this.dy > 0) {

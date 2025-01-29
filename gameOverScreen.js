@@ -2,6 +2,9 @@ export class GameOverScreen {
   constructor(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;
+
+    this.startScreenImage = new Image();
+    this.startScreenImage.src = "./assets/game-over.jpeg";
   }
 
   drawTextWithOutline(text, x, y, fontSize) {
@@ -16,6 +19,9 @@ export class GameOverScreen {
 
   draw(score) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.clearRect(0, 0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.drawImage(this.startScreenImage, 0, 0, this.canvas.width, this.canvas.height); // Draw scenic background
+
 
     // Draw game over text with outline
     this.drawTextWithOutline("You lost the game", this.canvas.width / 2, this.canvas.height / 2 - 100, 40);
