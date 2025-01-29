@@ -194,7 +194,7 @@ function update(time) {
   console.log('scrollOffset', scrollOffset);
   if(scrollOffset > 5000 && !nessieIsAlive){
     nessieIsAlive = true;
-    gameObjects.push(new Nessie(4000, canvas.height - 400, 800, 400, 3));
+    gameObjects.push(new Nessie(4500, canvas.height - 400, 800, 400, 3));
   }
 
   // Check for game over state
