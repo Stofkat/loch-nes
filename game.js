@@ -59,65 +59,72 @@ const createLevel = () => {
 
     new Block(1100, canvas.height - 80, 100, 80),
     new Block(1200, canvas.height - 80, 100, 80),
-    new Coin(1250, canvas.height - 100, 16, 16),
+    new Coin(1240, canvas.height - 100, 16, 16),
     new Block(1400, canvas.height - 150, 100, 150),
-    new Coin(1450, canvas.height - 170, 16, 16),
+    new Coin(1440, canvas.height - 170, 16, 16),
 
     new Block(1600, canvas.height - 200, 100, 200),
-    new Coin(1650, canvas.height - 220, 16, 16),
+    new Coin(1640, canvas.height - 220, 16, 16),
     new Block(1800, canvas.height - 300, 100, 300),
-    new Coin(1850, canvas.height - 320, 16, 16),
+    new Coin(1840, canvas.height - 320, 16, 16),
     new Block(1900, canvas.height - 300, 100, 300),
-    new Coin(1950, canvas.height - 320, 16, 16),
+    new Coin(1940, canvas.height - 320, 16, 16),
     new Block(2000, canvas.height - 300, 100, 300),
-    new Coin(2050, canvas.height - 320, 16, 16),
+    new Coin(2040, canvas.height - 320, 16, 16),
 
     new Block(2300, canvas.height - 80, 100, 80),
-    new Coin(2350, canvas.height - 100, 16, 16),
+    new Coin(2340, canvas.height - 100, 16, 16),
     new Block(2500, canvas.height - 80, 100, 80),
-    new Coin(2550, canvas.height - 100, 16, 16),
+    new Coin(2540, canvas.height - 100, 16, 16),
 
     new Block(2700, canvas.height - 80, 100, 80),
-    new Coin(2750, canvas.height - 100, 16, 16),
+    new Coin(2740, canvas.height - 100, 16, 16),
     new Block(2800, canvas.height - 80, 100, 80),
     new Block(2900, canvas.height - 80, 100, 80),
-    new Coin(2950, canvas.height - 100, 16, 16),
+    new Coin(2940, canvas.height - 100, 16, 16),
 
     new Block(3000, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 280, 100, 20),
-    new Coin(3150, canvas.height - 300, 16, 16),
+    new Coin(3140, canvas.height - 300, 16, 16),
 
     new Block(3100, canvas.height - 460, 100, 20),
-    new Coin(3150, canvas.height - 480, 16, 16),
+    new Coin(3140, canvas.height - 480, 16, 16),
 
     new Block(3200, canvas.height - 80, 100, 20),
-
     new Block(3300, canvas.height - 80, 100, 20),
-    new Block(3300, canvas.height - 190, 100, 20),
-    new Coin(3350, canvas.height - 210, 16, 16),
 
+
+    // The back and forth jumping blocks
+    new Block(3300, canvas.height - 190, 100, 20),
+    new Coin(3340, canvas.height - 210, 16, 16),
     new Block(3300, canvas.height - 370, 100, 20),
     new Block(3500, canvas.height - 370, 100, 20),
-    new Coin(3550, canvas.height - 390, 16, 16),
+    new Coin(3540, canvas.height - 390, 16, 16),
     new Block(3600, canvas.height - 370, 100, 20),
     new Enemy(3600, canvas.height - 430),
 
     new Block(3700, canvas.height - 370, 100, 20),
     new Coin(3700, canvas.height - 390, 16, 16),
 
-    new Block(4100, canvas.height - 150, 100, 20),
-    new Coin(4150, canvas.height - 170, 16, 16),
+    new Block(4000, canvas.height - 150, 100, 150),
+    new Coin(4040, canvas.height - 170, 16, 16),
+    new Coin(4050, canvas.height - 210, 16, 16),
+
+    // Large distance jump followed by many coins
+    new Block(4100, canvas.height - 150, 100, 150),
+    new Coin(4140, canvas.height - 170, 16, 16),
     new Coin(4150, canvas.height - 210, 16, 16),
 
     new Block(4200, canvas.height - 150, 100, 150),
-    new Coin(4250, canvas.height - 170, 16, 16),
+    new Coin(4240, canvas.height - 170, 16, 16),
     new Coin(4250, canvas.height - 210, 16, 16),
 
     new Block(4300, canvas.height - 150, 100, 150),
-    new Coin(4350, canvas.height - 170, 16, 16),
+    new Coin(4340, canvas.height - 170, 16, 16),
     new Coin(4350, canvas.height - 210, 16, 16),
 
+    // Blocks with second enemy and treasure
     new Block(4600, canvas.height - 100, 100, 100),
     new Coin(4600, canvas.height - 120, 16, 16),
     new Block(4700, canvas.height - 100, 100, 100),
@@ -132,11 +139,15 @@ const createLevel = () => {
     // Nessie spawns after picking up the treasure
     new Treasure(5100, canvas.height - 150, 50, 50),
 
+    // Some additional blocks for cinamatic effect
     new Block(5100, canvas.height - 100, 100, 100),
     new Block(5200, canvas.height - 100, 100, 100),
     new Block(5300, canvas.height - 100, 100, 100),
     new Block(5400, canvas.height - 100, 100, 100),
     new Block(5500, canvas.height - 100, 100, 100),
+
+
+    // Easy hopping first session with Nessie
 
     new Block(5800, canvas.height - 100, 100, 100),
     new Block(5900, canvas.height - 100, 100, 100),
@@ -147,16 +158,25 @@ const createLevel = () => {
     new Block(6400, canvas.height - 100, 100, 100),
     new Block(6500, canvas.height - 100, 100, 100),
 
+
+    // Increasing height of blocks
     new Block(6700, canvas.height - 100, 100, 100),
     new Block(6800, canvas.height - 100, 100, 100),
     new Block(6900, canvas.height - 100, 100, 100),
     new Block(7000, canvas.height - 200, 100, 200),
-    new Block(7100, canvas.height - 100, 100, 100),
+    new Block(7100, canvas.height -150 , 50, 150),
+    new Block(7150, canvas.height - 100, 50, 100),
     new Block(7200, canvas.height - 100, 100, 100),
     new Block(7300, canvas.height - 300, 100, 300),
-    new Block(7400, canvas.height - 100, 100, 100),
+    new Block(7400, canvas.height - 150, 50, 150),
+    new Block(7450, canvas.height - 100, 50, 100),
     new Block(7500, canvas.height - 100, 100, 100),
     new Block(7600, canvas.height - 400, 100, 400),
+
+
+    // Leap of faith
+    new Block(8000, canvas.height - 100, 100, 100),
+
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -185,7 +205,84 @@ const GAME_STATE = {
 
 let gameState = GAME_STATE.TITLE;
 
-function update(time) {
+// Add these constants at the top
+const LOGIC_FPS = 60;
+const LOGIC_TICK = 1000 / LOGIC_FPS;
+let lastLogicUpdate = 0;
+let lastRenderTime = 0;
+let logicAccumulator = 0;
+
+// Split update into render and logic functions
+function gameLoop(currentTime) {
+  // Convert to seconds
+  const deltaTime = currentTime - lastRenderTime;
+  lastRenderTime = currentTime;
+  
+  // Update logic accumulator
+  logicAccumulator += deltaTime;
+  
+  // Run as many logic updates as needed to catch up
+  while (logicAccumulator >= LOGIC_TICK) {
+    updateLogic();
+    logicAccumulator -= LOGIC_TICK;
+  }
+  
+  // Render at whatever frame rate the browser provides
+  render();
+  
+  requestAnimationFrame(gameLoop);
+}
+
+function updateLogic() {
+  switch (gameState) {
+    case GAME_STATE.PLAYING:
+      if (player.isDead) {
+        setTimeout(() => {
+          gameState = GAME_STATE.GAME_OVER;
+          musicLevel.pause();
+          musicLevel.currentTime = 0;
+          musicTitle.play();
+        }, 1000);
+        return;
+      }
+
+      // Update player position
+      player.update(keys, gravity, canvas);
+
+      // Update game objects
+      gameObjects.forEach((obj, index) => {
+        if (obj.update) obj.update(gameObjects, scrollOffset);
+
+        // Remove dead enemies or expired explosions
+        if ((obj instanceof Enemy && obj.shouldRemove()) ||
+          (obj instanceof Explosion && !obj.isAlive())) {
+          gameObjects.splice(index, 1);
+        }
+      });
+
+      // Check player collision with blocks
+      const playerCollision = player.checkCollision(gameObjects, scrollOffset);
+
+      // Update scroll position
+      if (!playerCollision) {
+        if (keys["ArrowRight"]) {
+          scrollSpeed = player.speed;
+        } else if (keys["ArrowLeft"]) {
+          scrollSpeed = -player.speed;
+        } else {
+          scrollSpeed *= friction;
+        }
+      } else {
+        scrollSpeed = -scrollSpeed;
+      }
+
+      scrollOffset += scrollSpeed;
+      backgroundScrollOffset += scrollSpeed * 0.25;
+      break;
+  }
+}
+
+function render() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 
@@ -195,106 +292,57 @@ function update(time) {
       break;
 
     case GAME_STATE.PLAYING:
-      updateGameplay(time);
+      // Draw background with parallax effect
+      const scaleFactor = canvas.height / backgroundImage.height;
+      const scaledWidth = backgroundImage.width * scaleFactor;
+
+      backgroundCtx.drawImage(
+        backgroundImage,
+        -backgroundScrollOffset % scaledWidth,
+        0,
+        scaledWidth,
+        canvas.height
+      );
+      backgroundCtx.drawImage(
+        backgroundImage,
+        (-backgroundScrollOffset % scaledWidth) + scaledWidth,
+        0,
+        scaledWidth,
+        canvas.height
+      );
+
+      ctx.drawImage(backgroundCanvas, 0, 0);
+
+      // Draw water blocks
+      waterBlocks.forEach((water) => {
+        water.draw(ctx, performance.now());
+      });
+
+      // Draw player
+      player.draw(ctx);
+
+      // Draw game objects
+      gameObjects.forEach(obj => {
+        obj.draw(ctx, scrollOffset);
+      });
+
+      // Draw score
+      ctx.font = '20px "Press Start 2P"';
+      ctx.fillStyle = "white";
+      ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
       break;
 
     case GAME_STATE.GAME_OVER:
       gameOverScreen.draw(player.score);
       break;
   }
-
-  requestAnimationFrame(update);
-}
-
-function updateGameplay(time) {
-  if (player.isDead) {
-    setTimeout(() => {
-      gameState = GAME_STATE.GAME_OVER;
-      musicLevel.pause();
-      musicLevel.currentTime = 0;
-      musicTitle.play();
-    }, 1000); // Delay game over screen to show death animation
-    return;
-  }
-
-  // Calculate scaling factor to maintain aspect ratio
-  const scaleFactor = canvas.height / backgroundImage.height;
-  const scaledWidth = backgroundImage.width * scaleFactor;
-
-  // Draw background with parallax effect
-  backgroundCtx.drawImage(
-    backgroundImage,
-    -backgroundScrollOffset % scaledWidth,
-    0,
-    scaledWidth,
-    canvas.height
-  );
-  backgroundCtx.drawImage(
-    backgroundImage,
-    (-backgroundScrollOffset % scaledWidth) + scaledWidth,
-    0,
-    scaledWidth,
-    canvas.height
-  );
-
-  // Draw background canvas to main canvas
-  ctx.drawImage(backgroundCanvas, 0, 0);
-
-  // Draw the water blocks
-  waterBlocks.forEach((water) => {
-    water.draw(ctx, time);
-  });
-
-  // Update player position
-  player.update(keys, gravity, canvas);
-
-  // Draw player
-  player.draw(ctx);
-
-  // Draw and update all game objects
-  gameObjects.forEach((obj, index) => {
-    obj.draw(ctx, scrollOffset);
-    if (obj.update) obj.update(gameObjects, scrollOffset);
-
-    // Remove dead enemies or expired explosions
-    if ((obj instanceof Enemy && obj.shouldRemove()) ||
-      (obj instanceof Explosion && !obj.isAlive())) {
-      gameObjects.splice(index, 1);
-    }
-  });
-
-  // Check player collision with blocks
-  const playerCollision = player.checkCollision(gameObjects, scrollOffset);
-
-
-
-  // Scroll the world
-  if (!playerCollision) {
-    if (keys["ArrowRight"]) {
-      scrollSpeed = player.speed;
-    } else if (keys["ArrowLeft"]) {
-      scrollSpeed = -player.speed;
-    } else {
-      scrollSpeed *= friction; // Apply friction to the scroll speed
-    }
-  } else {
-    scrollSpeed = -scrollSpeed;
-  }
-
-  scrollOffset += scrollSpeed;
-  backgroundScrollOffset += scrollSpeed * 0.25; // Parallax effect
-
-  // Draw score
-  ctx.font = '20px "Press Start 2P"';
-  ctx.fillStyle = "white";
-  ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
 }
 
 function startGame() {
   createLevel();
   gameState = GAME_STATE.PLAYING;
   player = new Player(canvas.width / 2 - 16, canvas.height - 150);
-  scrollOffset = 0;
+  scrollOffset = 6000;
   scrollSpeed = 0;
   backgroundScrollOffset = 0;
 
@@ -338,6 +386,15 @@ document.getElementById("right").addEventListener("touchend", () => {
   keys["ArrowRight"] = false;
 });
 
+document.getElementById("buttonA").addEventListener("touchstart", () => {
+  if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
+    startGame();
+    return
+  }
+  keys[" "] = true;
+  soundJump.play();
+});
+
 document.getElementById("buttonA").addEventListener("touchend", () => {
   if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
     startGame();
@@ -345,5 +402,5 @@ document.getElementById("buttonA").addEventListener("touchend", () => {
   keys[" "] = false;
 });
 
-
-update(); // Start the game loop
+// Replace the original update() call with:
+requestAnimationFrame(gameLoop);

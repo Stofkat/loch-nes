@@ -25,6 +25,8 @@ export class Player {
     this.ticksPerFrame = 3;
     this.numberOfFrames = 8;
     this.facingRight = true;
+    this.reachedCheckpoint = false;
+    this.lifes = 3;
 
     this.score = 0;
     this.isDead = false;
@@ -189,6 +191,7 @@ export class Player {
         if (gameObj instanceof Treasure) {
           if (!gameObj.collected) {
             gameObj.collected = true;
+            this.reachedCheckpoint = true;
             this.score += 100;
             objects.push(new Nessie(4000, 200, 800, 400, 3));
             soundNessie.play();
