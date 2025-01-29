@@ -33,32 +33,53 @@ export class Player {
     this.image.onload = () => {
       this.loaded = true;
     };
+
+    this.invincible = false;
+    this.invincibilityTime = 0;
+    this.maxInvincibilityTime = 60; // 1 second at 60fps
+    this.deathRotation = 0;
+    this.deathFallSpeed = -10; // Initial upward velocity when dying
+    this.deathGravity = 0.5;
   }
 
   draw(ctx) {
-    if (this.loaded) {
-      ctx.save();
-      if (!this.facingRight) {
+    if (!this.loaded) return;
+    
+    ctx.save();
+    
+    
+    if (this.isDead) {
+        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+        ctx.rotate(this.deathRotation);
+        ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
+    } else if (!this.facingRight) {
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
         ctx.scale(-1, 1);
         ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
-      }
-      ctx.drawImage(
-        this.image,
-        this.frameIndex * this.width,
-        0,
-        this.width,
-        this.height,
-        this.x,
-        this.y,
-        this.width,
-        this.height
-      );
-      ctx.restore();
     }
+    
+    ctx.drawImage(
+      this.image,
+      this.frameIndex * this.width,
+      0,
+      this.width,
+      this.height,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
+    ctx.restore();
   }
 
   update(keys, gravity, canvas) {
+    if (this.isDead) {
+        this.deathRotation += 0.2;
+        this.deathFallSpeed += this.deathGravity;
+        this.y += this.deathFallSpeed;
+        return;
+    }
+
     if (keys["ArrowRight"]) {
       this.dx = this.speed;
       this.facingRight = true;
@@ -100,13 +121,18 @@ export class Player {
     let collision = false;
     this.grounded = false;  // Reset grounded state each frame
 
+    const playerLeft = this.x + this.borderWidth;
+    const playerRight = this.x + this.width - this.borderWidth;
+    const playerTop = this.y;
+    const playerBottom = this.y + this.height;
+
+    if(playerBottom > 600 - 10 && !this.isDead) {
+        this.isDead = true;
+        soundDeath.play();
+    }
+
     for (const gameObj of objects) {
         // Calculate collision bounds with border adjustment
-        const playerLeft = this.x + this.borderWidth;
-        const playerRight = this.x + this.width - this.borderWidth;
-        const playerTop = this.y;
-        const playerBottom = this.y + this.height;
-        
         const objLeft = gameObj.x - scrollOffset;
         const objRight = gameObj.x + gameObj.width - scrollOffset;
         const objTop = gameObj.y;
@@ -120,20 +146,24 @@ export class Player {
 
             // Handle enemy collisions
             if (gameObj instanceof Enemy && !gameObj.isDead) {
-                const playerCenterY = this.y + this.height / 2;
-                // If player is above the enemy and moving down
-                if (playerCenterY < gameObj.y && this.dy > 0) {
-                    // Kill enemy
-                    gameObj.isDead = true;
-                    // Bounce player up
-                    this.dy = -this.speed * 1.5;
-                    this.jumping = true;
-                    this.score += 10;
-                } else {
-                    // Player dies
-                    if (!this.isDead) {
-                        this.isDead = true;
-                        soundDeath.play();
+                if (!this.invincible) {  // Only check enemy collision if not invincible
+                    const playerCenterY = this.y + this.height / 2;
+                    if (playerCenterY < gameObj.y && this.dy > 0) {
+                        // Kill enemy
+                        gameObj.isDead = true;
+                        this.dy = -this.speed * 1.5;
+                        this.jumping = true;
+                        this.score += 10;
+                        // Add brief invincibility after killing enemy
+                        this.invincible = true;
+                        this.invincibilityTime = 30;
+                    } else {
+                        // Player dies
+                        if (!this.isDead) {
+                            this.isDead = true;
+                            this.deathFallSpeed = -10;
+                            soundDeath.play();
+                        }
                     }
                 }
                 continue;

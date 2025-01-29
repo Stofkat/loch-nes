@@ -172,41 +172,50 @@ createLevel();
 let scrollOffset = 0;
 let scrollSpeed = 0;
 let backgroundScrollOffset = 0;
-let gameStarted = false; // Track if the game has started
-let gameOver = false; // Track if the game is over
 
 const startScreen = new StartScreen(canvas, ctx);
 const gameOverScreen = new GameOverScreen(canvas, ctx);
 
+// Add these at the top with other constants
+const GAME_STATE = {
+  TITLE: 'title',
+  PLAYING: 'playing',
+  GAME_OVER: 'gameOver'
+};
+
+let gameState = GAME_STATE.TITLE;
+
 function update(time) {
-  if (!gameStarted) {
-    startScreen.draw();
-    requestAnimationFrame(update);
-    return;
-  }
-
-  if (gameOver) {
-    gameOverScreen.draw(player.score);
-    requestAnimationFrame(update);
-    return;
-  }
-
-
-  // Check for game over state
-  if (player.isDead) {
-    gameOver = true;
-    musicLevel.pause();
-    musicLevel.currentTime = 0;
-    musicTitle.play();
-    requestAnimationFrame(update);
-    return;
-  }
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   backgroundCtx.clearRect(0, 0, backgroundCanvas.width, backgroundCanvas.height);
 
-  // Update player position
-  player.update(keys, gravity, canvas);
+  switch (gameState) {
+    case GAME_STATE.TITLE:
+      startScreen.draw();
+      break;
+
+    case GAME_STATE.PLAYING:
+      updateGameplay(time);
+      break;
+
+    case GAME_STATE.GAME_OVER:
+      gameOverScreen.draw(player.score);
+      break;
+  }
+
+  requestAnimationFrame(update);
+}
+
+function updateGameplay(time) {
+  if (player.isDead) {
+    setTimeout(() => {
+      gameState = GAME_STATE.GAME_OVER;
+      musicLevel.pause();
+      musicLevel.currentTime = 0;
+      musicTitle.play();
+    }, 1000); // Delay game over screen to show death animation
+    return;
+  }
 
   // Calculate scaling factor to maintain aspect ratio
   const scaleFactor = canvas.height / backgroundImage.height;
@@ -231,6 +240,14 @@ function update(time) {
   // Draw background canvas to main canvas
   ctx.drawImage(backgroundCanvas, 0, 0);
 
+  // Draw the water blocks
+  waterBlocks.forEach((water) => {
+    water.draw(ctx, time);
+  });
+
+  // Update player position
+  player.update(keys, gravity, canvas);
+
   // Draw player
   player.draw(ctx);
 
@@ -240,18 +257,16 @@ function update(time) {
     if (obj.update) obj.update(gameObjects, scrollOffset);
 
     // Remove dead enemies or expired explosions
-    if ((obj instanceof Enemy && obj.shouldRemove()) || 
-        (obj instanceof Explosion && !obj.isAlive())) {
-        gameObjects.splice(index, 1);
+    if ((obj instanceof Enemy && obj.shouldRemove()) ||
+      (obj instanceof Explosion && !obj.isAlive())) {
+      gameObjects.splice(index, 1);
     }
   });
 
   // Check player collision with blocks
   const playerCollision = player.checkCollision(gameObjects, scrollOffset);
 
-  waterBlocks.forEach((water) => {
-    water.draw(ctx, time);
-  });
+
 
   // Scroll the world
   if (!playerCollision) {
@@ -270,33 +285,35 @@ function update(time) {
   backgroundScrollOffset += scrollSpeed * 0.25; // Parallax effect
 
   // Draw score
-  ctx.font = '20px "Press Start 2P"'; // Use 8-bit font
+  ctx.font = '20px "Press Start 2P"';
   ctx.fillStyle = "white";
   ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
-
-  requestAnimationFrame(update);
 }
 
 function startGame() {
-  gameStarted = true;
-  gameOver = false;
+  createLevel();
+  gameState = GAME_STATE.PLAYING;
   player = new Player(canvas.width / 2 - 16, canvas.height - 150);
   scrollOffset = 0;
   scrollSpeed = 0;
   backgroundScrollOffset = 0;
 
-  createLevel();
   musicTitle.pause();
   musicTitle.currentTime = 0;
   musicLevel.play();
 }
 
 document.addEventListener("keydown", (e) => {
-  if (!gameStarted) {
+  if (gameState === GAME_STATE.TITLE) {
     startGame();
-  } else if (gameOver) {
+  } else if (gameState === GAME_STATE.GAME_OVER) {
     startGame();
+  } else if (e.key === 'Escape' && gameState === GAME_STATE.PLAYING) {
+    gameState = GAME_STATE.PAUSED;
+  } else if (e.key === 'Escape' && gameState === GAME_STATE.PAUSED) {
+    gameState = GAME_STATE.PLAYING;
   }
+
   keys[e.key] = true;
   if (e.key === " " && player.grounded) {
     soundJump.play();
@@ -321,19 +338,12 @@ document.getElementById("right").addEventListener("touchend", () => {
   keys["ArrowRight"] = false;
 });
 
-document.getElementById("buttonA").addEventListener("touchstart", () => {
-  if (player.grounded) {
-    keys[" "] = true;
-    soundJump.play();
-  }
-});
 document.getElementById("buttonA").addEventListener("touchend", () => {
-  if (!gameStarted) {
-    startGame();
-  } else if (gameOver) {
+  if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
     startGame();
   }
   keys[" "] = false;
 });
+
 
 update(); // Start the game loop

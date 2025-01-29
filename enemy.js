@@ -24,6 +24,10 @@ export class Enemy extends GameObject {
     this.isDead = false;
     this.deathTimer = 0;
     this.maxDeathTime = 30; // Frames before removal
+    this.deathRotation = 0;  // Track rotation during death
+    this.deathRotationSpeed = Math.PI / 15;  // Rotation speed when dying
+    this.deathFallSpeed = 2;  // Initial upward velocity when dying
+    this.deathGravity = 0.4;  // Gravity applied during death animation
   }
 
   draw(ctx, scrollOffset) {
@@ -31,9 +35,9 @@ export class Enemy extends GameObject {
     
     ctx.save();
     if (this.isDead) {
-      // Draw enemy upside down when dead
+      // Improved death animation with rotation and arc motion
       ctx.translate(this.x + this.width / 2 - scrollOffset, this.y + this.height / 2);
-      ctx.rotate(Math.PI);
+      ctx.rotate(this.deathRotation);
       ctx.translate(-(this.x + this.width / 2 - scrollOffset), -(this.y + this.height / 2));
     } else if (!this.facingRight) {
       ctx.translate(this.x + this.width / 2 - scrollOffset, this.y + this.height / 2);
@@ -58,7 +62,9 @@ export class Enemy extends GameObject {
   update(objects, scrollOffset) {
     if (this.isDead) {
       this.deathTimer++;
-      this.y += 5; // Fall when dead
+      this.deathRotation += this.deathRotationSpeed;
+      this.deathFallSpeed += this.deathGravity;
+      this.y += this.deathFallSpeed;
       return;
     }
 
