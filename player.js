@@ -6,6 +6,7 @@ import { Enemy } from "./enemy.js";
 const soundCoin = new Audio("./sound/coin.wav");
 const soundDeath = new Audio("./sound/death.wav");
 const soundNessie = new Audio("./sound/nessie.wav");
+const soundGnomeDeath = new Audio("./sound/gnome.mp3");
 
 export class Player {
   constructor(x, y) {
@@ -44,20 +45,20 @@ export class Player {
 
   draw(ctx) {
     if (!this.loaded) return;
-    
+
     ctx.save();
-    
-    
+
+
     if (this.isDead) {
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.rotate(this.deathRotation);
-        ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
+      ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+      ctx.rotate(this.deathRotation);
+      ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
     } else if (!this.facingRight) {
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-        ctx.scale(-1, 1);
-        ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
+      ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+      ctx.scale(-1, 1);
+      ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2));
     }
-    
+
     ctx.drawImage(
       this.image,
       this.frameIndex * this.width,
@@ -74,10 +75,10 @@ export class Player {
 
   update(keys, gravity, canvas) {
     if (this.isDead) {
-        this.deathRotation += 0.2;
-        this.deathFallSpeed += this.deathGravity;
-        this.y += this.deathFallSpeed;
-        return;
+      this.deathRotation += 0.2;
+      this.deathFallSpeed += this.deathGravity;
+      this.y += this.deathFallSpeed;
+      return;
     }
 
     if (keys["ArrowRight"]) {
@@ -126,104 +127,102 @@ export class Player {
     const playerTop = this.y;
     const playerBottom = this.y + this.height;
 
-    if(playerBottom > 600 - 10 && !this.isDead) {
-        this.isDead = true;
-        soundDeath.play();
+    if (playerBottom > 600 - 10 && !this.isDead) {
+      this.isDead = true;
+      soundDeath.play();
     }
 
     for (const gameObj of objects) {
-        // Calculate collision bounds with border adjustment
-        const objLeft = gameObj.x - scrollOffset;
-        const objRight = gameObj.x + gameObj.width - scrollOffset;
-        const objTop = gameObj.y;
-        const objBottom = gameObj.y + gameObj.height;
+      // Calculate collision bounds with border adjustment
+      const objLeft = gameObj.x - scrollOffset;
+      const objRight = gameObj.x + gameObj.width - scrollOffset;
+      const objTop = gameObj.y;
+      const objBottom = gameObj.y + gameObj.height;
 
-        // Check if there's any overlap
-        if (playerRight > objLeft && 
-            playerLeft < objRight && 
-            playerBottom > objTop && 
-            playerTop < objBottom) {
+      // Check if there's any overlap
+      if (playerRight > objLeft &&
+        playerLeft < objRight &&
+        playerBottom > objTop &&
+        playerTop < objBottom) {
 
-            // Handle enemy collisions
-            if (gameObj instanceof Enemy && !gameObj.isDead) {
-                if (!this.invincible) {  // Only check enemy collision if not invincible
-                    const playerCenterY = this.y + this.height / 2;
-                    if (playerCenterY < gameObj.y && this.dy > 0) {
-                        // Kill enemy
-                        gameObj.isDead = true;
-                        this.dy = -this.speed * 1.5;
-                        this.jumping = true;
-                        this.score += 10;
-                        // Add brief invincibility after killing enemy
-                        this.invincible = true;
-                        this.invincibilityTime = 30;
-                    } else {
-                        // Player dies
-                        if (!this.isDead) {
-                            this.isDead = true;
-                            this.deathFallSpeed = -10;
-                            soundDeath.play();
-                        }
-                    }
-                }
-                continue;
-            }
+        // Handle enemy collisions
+        if (gameObj instanceof Enemy && !gameObj.isDead) {
+          const playerCenterY = this.y + this.height / 2;
+          // Check if the player is jumping and the enemy is below the player
+          if (playerCenterY < gameObj.y && this.dy > 0) {
+            // Kill enemy
+            gameObj.isDead = true;
+            this.dy = -this.speed * 1.5;
+            this.jumping = true;
+            this.score += 10;
+            soundGnomeDeath.play();
+          }
 
-            // Handle Nessie collision
-            if (gameObj instanceof Nessie && !this.isDead) {
-                this.isDead = true;
-                soundDeath.play();
-                continue;
-            }
-
-            // Handle coin collection
-            if (gameObj instanceof Coin) {
-                if (!gameObj.collected) {
-                    soundCoin.play();
-                    this.score += 5;
-                    gameObj.collected = true;
-                }
-                continue;
-            }
-
-            // Handle treasure collection
-            if (gameObj instanceof Treasure) {
-                if (!gameObj.collected) {
-                    gameObj.collected = true;
-                    this.score += 100;
-                    objects.push(new Nessie(4000, 200, 800, 400, 3));
-                    soundNessie.play();
-                }
-                continue;
-            }
-
-            // Handle platform collisions
-            const overlapX = Math.min(playerRight - objLeft, objRight - playerLeft);
-            const overlapY = Math.min(playerBottom - objTop, objBottom - playerTop);
-
-            if (overlapX < overlapY) {
-                // Horizontal collision
-                if (playerRight - objLeft < objRight - playerLeft) {
-                    this.x = objLeft - this.width + this.borderWidth;
-                } else {
-                    this.x = objRight - this.borderWidth;
-                }
-                collision = true;
-            } else {
-                // Vertical collision
-                if (playerBottom - objTop < objBottom - playerTop) {
-                    // Landing on top
-                    this.y = objTop - this.height;
-                    this.dy = 0;
-                    this.jumping = false;
-                    this.grounded = true;
-                } else {
-                    // Hitting from below
-                    this.y = objBottom;
-                    this.dy = 0;
-                }
-            }
+          // Player dies
+          if (!this.isDead && !gameObj.isDead) {
+            this.isDead = true;
+            this.deathFallSpeed = -10;
+            soundDeath.play();
+          }
+          continue;
         }
+
+
+        // Handle Nessie collision
+        if (gameObj instanceof Nessie && !this.isDead) {
+          this.isDead = true;
+          soundDeath.play();
+          continue;
+        }
+
+        // Handle coin collection
+        if (gameObj instanceof Coin) {
+          if (!gameObj.collected) {
+            soundCoin.play();
+            this.score += 5;
+            gameObj.collected = true;
+          }
+          continue;
+        }
+
+        // Handle treasure collection
+        if (gameObj instanceof Treasure) {
+          if (!gameObj.collected) {
+            gameObj.collected = true;
+            this.score += 100;
+            objects.push(new Nessie(4000, 200, 800, 400, 3));
+            soundNessie.play();
+          }
+          continue;
+        }
+
+        // Handle platform collisions
+        const overlapX = Math.min(playerRight - objLeft, objRight - playerLeft);
+        const overlapY = Math.min(playerBottom - objTop, objBottom - playerTop);
+
+        if (overlapX < overlapY) {
+          // Horizontal collision
+          if (playerRight - objLeft < objRight - playerLeft) {
+            this.x = objLeft - this.width + this.borderWidth;
+          } else {
+            this.x = objRight - this.borderWidth;
+          }
+          collision = true;
+        } else {
+          // Vertical collision
+          if (playerBottom - objTop < objBottom - playerTop) {
+            // Landing on top
+            this.y = objTop - this.height;
+            this.dy = 0;
+            this.jumping = false;
+            this.grounded = true;
+          } else {
+            // Hitting from below
+            this.y = objBottom;
+            this.dy = 0;
+          }
+        }
+      }
     }
 
     return collision;
