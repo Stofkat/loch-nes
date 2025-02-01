@@ -79,7 +79,15 @@ body.mobile .controls-right {
   touch-action: manipulation;
 }
 
-.button::before {
+#left::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+}
+#right::before {
   content: "";
   position: absolute;
   top: -20px;

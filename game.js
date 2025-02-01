@@ -166,12 +166,16 @@ const createLevel = () => {
 
     new Block(5800, canvas.height - 100, 100, 100),
     new Block(5900, canvas.height - 100, 100, 100),
+    new Coin(5840, canvas.height - 120, 16, 16),
 
     new Block(6100, canvas.height - 100, 100, 100),
     new Block(6200, canvas.height - 100, 100, 100),
+    new Coin(6140, canvas.height - 120, 16, 16),
 
     new Block(6400, canvas.height - 100, 100, 100),
+    new Coin(6440, canvas.height - 120, 16, 16),
     new Block(6500, canvas.height - 100, 100, 100),
+
 
     // Increasing height of blocks
     new Block(6700, canvas.height - 100, 100, 100),
@@ -192,21 +196,21 @@ const createLevel = () => {
     new Block(8100, canvas.height - 100, 100, 100),
     new Block(8100, canvas.height - 100, 100, 100),
     new Block(8200, canvas.height - 100, 100, 100),
-    new Block(8300, canvas.height - 150, 100, 150),
+    new Block(8300, canvas.height - 200, 100, 200),
 
     // Enemy hurdle
     new Block(8400, canvas.height - 100, 100, 100),
-    new Enemy(8450, canvas.height - 160),
+    new Enemy(8400, canvas.height - 160),
     new Block(8500, canvas.height - 100, 100, 100),
     new Enemy(8550, canvas.height - 160),
-    new Block(8600, canvas.height - 100, 100, 100),
+    new Block(8600, canvas.height - 200, 100, 200),
     new Enemy(8650, canvas.height - 160),
     new Block(8700, canvas.height - 100, 100, 100),
-    new Enemy(8750, canvas.height - 160),
-    new Block(8800, canvas.height - 100, 100, 100),
+    new Enemy(8700, canvas.height - 160),
+    new Block(8800, canvas.height - 200, 100, 200),
     new Enemy(8850, canvas.height - 160),
     new Block(8900, canvas.height - 100, 100, 100),
-    new Block(9000, canvas.height - 100, 100, 100),
+    new Block(9000, canvas.height - 200, 100, 200),
 
     new Block(9200, canvas.height - 100, 100, 100),
     new Coin(9240, canvas.height - 120, 16, 16),
@@ -288,12 +292,18 @@ function updateLogic() {
   switch (gameState) {
     case GAME_STATE.PLAYING:
       if (player.isDead) {
-        setTimeout(() => {
-          gameState = GAME_STATE.GAME_OVER;
-          musicLevel.pause();
-          musicLevel.currentTime = 0;
-          musicTitle.play();
-        }, 1000);
+        // if(player.reachedCheckpoint) {
+        //   player.lifes--;
+        //   if(player.lifes > 0) {
+        //     return;
+        //   }
+        // } 
+      setTimeout(() => {
+        gameState = GAME_STATE.GAME_OVER;
+        musicLevel.pause();
+        musicLevel.currentTime = 0;
+        musicTitle.play();
+      }, 1000);
         return;
       } else if (player.hasWon) {
         musicLevel.pause();
@@ -415,6 +425,7 @@ document.addEventListener("keydown", (e) => {
   if (gameState === GAME_STATE.TITLE) {
     startGame();
   } else if (gameState === GAME_STATE.GAME_OVER || gameState === GAME_STATE.GAME_WON) {
+
     startGame();
   } else if (e.key === "Escape" && gameState === GAME_STATE.PLAYING) {
     gameState = GAME_STATE.PAUSED;
