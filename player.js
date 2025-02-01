@@ -2,6 +2,7 @@ import { Coin } from "./coin.js";
 import { Nessie } from "./nessie.js";
 import { Treasure } from "./treasure.js";
 import { Enemy } from "./enemy.js";
+import { FinishPole } from "./finishPole.js";
 
 const soundCoin = new Audio("./sound/coin.wav");
 const soundDeath = new Audio("./sound/death.wav");
@@ -30,6 +31,7 @@ export class Player {
 
     this.score = 0;
     this.isDead = false;
+    this.hasWon = false;
 
     this.image = new Image();
     this.image.src = "./assets/player.png";
@@ -197,6 +199,10 @@ export class Player {
             soundNessie.play();
           }
           continue;
+        }
+
+        if(gameObj instanceof FinishPole && !this.hasWon) {
+          this.hasWon = true;
         }
 
         // Handle platform collisions

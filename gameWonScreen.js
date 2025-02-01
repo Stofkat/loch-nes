@@ -1,4 +1,4 @@
-export class GameOverScreen {
+export class GameWonScreen {
   constructor(canvas, ctx) {
     this.canvas = canvas;
     this.ctx = ctx;

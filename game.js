@@ -7,6 +7,8 @@ import { Rain } from "./rain.js";
 import { Explosion } from "./explosion.js";
 import { StartScreen } from "./startScreen.js";
 import { GameOverScreen } from "./gameOverScreen.js";
+import { GameWonScreen } from "./gameWonScreen.js";
+
 import { Treasure } from "./treasure.js";
 
 const canvas = document.getElementById("gameCanvas");
@@ -26,6 +28,8 @@ const soundJump = new Audio("./sound/jump.wav");
 
 const musicLevel = new Audio("./sound/level.mp3");
 const musicTitle = new Audio("./sound/title.mp3");
+const musicWon = new Audio("./sound/won.wav");
+
 musicTitle.play();
 musicTitle.loop = true;
 
@@ -211,13 +215,10 @@ const createLevel = () => {
 
     new Block(9800, canvas.height - 250, 100, 100),
 
-
     // Finish!
-    new Block(1000, canvas.height - 300, 100, 100),
-    new Block(1100, canvas.height - 300, 100, 100),
-    new Block(1200, canvas.height - 300, 100, 100),
-
-
+    new Block(10000, canvas.height - 300, 100, 100),
+    new Block(11000, canvas.height - 300, 100, 100),
+    new Block(12000, canvas.height - 300, 100, 100),
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -236,6 +237,7 @@ let backgroundScrollOffset = 0;
 
 const startScreen = new StartScreen(canvas, ctx);
 const gameOverScreen = new GameOverScreen(canvas, ctx);
+const gameWonScreen = new GameWonScreen(canvas, ctx);
 
 // Add these at the top with other constants
 const GAME_STATE = {
@@ -286,6 +288,14 @@ function updateLogic() {
           musicTitle.play();
         }, 1000);
         return;
+      } else if (player.hasWon) {
+        musicLevel.pause();
+        musicLevel.currentTime = 0;
+        musicWon.currentTime = 0;
+        musicWon.play();
+        setTimeout(() => {
+          gameState = GAME_STATE.GAME_WON;
+        }, 1000);
       }
 
       // Update player position
@@ -334,7 +344,12 @@ function render() {
     case GAME_STATE.TITLE:
       startScreen.draw();
       break;
-
+    case GAME_STATE.GAME_OVER:
+      gameOverScreen.draw(player.score);
+      break;
+    case GAME_STATE.GAME_WON:
+      gameWonScreen.draw(player.score);
+      break;
     case GAME_STATE.PLAYING:
       // Draw background with parallax effect
       const scaleFactor = canvas.height / backgroundImage.height;
@@ -375,10 +390,6 @@ function render() {
       ctx.fillStyle = "white";
       ctx.fillText(`Score: ${player.score}`, canvas.width - 200, 30);
       break;
-
-    case GAME_STATE.GAME_OVER:
-      gameOverScreen.draw(player.score);
-      break;
   }
 }
 
@@ -398,7 +409,7 @@ function startGame() {
 document.addEventListener("keydown", (e) => {
   if (gameState === GAME_STATE.TITLE) {
     startGame();
-  } else if (gameState === GAME_STATE.GAME_OVER) {
+  } else if (gameState === GAME_STATE.GAME_OVER || gameState === GAME_STATE.GAME_WON) {
     startGame();
   } else if (e.key === "Escape" && gameState === GAME_STATE.PLAYING) {
     gameState = GAME_STATE.PAUSED;
@@ -431,8 +442,23 @@ document.getElementById("right").addEventListener("touchend", () => {
 });
 
 document.getElementById("buttonA").addEventListener("touchstart", () => {
-  if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
-    startGame();
+  if (
+    gameState === GAME_STATE.TITLE ||
+    gameState === GAME_STATE.GAME_OVER ||
+    gameState === GAME_STATE.GAME_WON
+  ) {
+    return;
+  }
+  keys[" "] = true;
+  soundJump.play();
+});
+
+document.getElementById("buttonB").addEventListener("touchstart", () => {
+  if (
+    gameState === GAME_STATE.TITLE ||
+    gameState === GAME_STATE.GAME_OVER ||
+    gameState === GAME_STATE.GAME_WON
+  ) {
     return;
   }
   keys[" "] = true;
@@ -441,6 +467,17 @@ document.getElementById("buttonA").addEventListener("touchstart", () => {
 
 document.getElementById("buttonA").addEventListener("touchend", () => {
   if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
+    startGame();
+  }
+  keys[" "] = false;
+});
+
+document.getElementById("buttonB").addEventListener("touchend", () => {
+  if (
+    gameState === GAME_STATE.TITLE ||
+    gameState === GAME_STATE.GAME_OVER ||
+    gameState === GAME_STATE.GAME_WON
+  ) {
     startGame();
   }
   keys[" "] = false;
