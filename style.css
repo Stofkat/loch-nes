@@ -64,6 +64,7 @@ body.mobile .controls-right {
 }
 
 .button {
+  position: relative;
   width: 50px;
   height: 50px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -76,6 +77,15 @@ body.mobile .controls-right {
   color: black;
   user-select: none;
   touch-action: manipulation;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
 }
 
 .mobile-controls .button:active {
