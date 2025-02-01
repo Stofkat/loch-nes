@@ -6,7 +6,7 @@ export class FinishPole extends GameObject {
         this.collected = false;
 
         this.image = new Image();
-        this.image.src = './assets/finish.png';
+        this.image.src = './assets/flag.png';
         this.image.onload = () => {
             this.loaded = true;
         };

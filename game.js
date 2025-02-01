@@ -10,6 +10,7 @@ import { GameOverScreen } from "./gameOverScreen.js";
 import { GameWonScreen } from "./gameWonScreen.js";
 
 import { Treasure } from "./treasure.js";
+import { FinishPole } from "./finishPole.js";
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -208,17 +209,23 @@ const createLevel = () => {
     new Block(9000, canvas.height - 100, 100, 100),
 
     new Block(9200, canvas.height - 100, 100, 100),
+    new Coin(9240, canvas.height - 120, 16, 16),
 
-    new Block(9400, canvas.height - 150, 100, 100),
+    new Block(9400, canvas.height - 150, 100, 150),
+    new Coin(9440, canvas.height - 170, 16, 16),
 
-    new Block(9600, canvas.height - 200, 100, 100),
+    new Block(9600, canvas.height - 200, 100, 200),
+    new Coin(9640, canvas.height - 220, 16, 16),
 
-    new Block(9800, canvas.height - 250, 100, 100),
+    new Block(9800, canvas.height - 250, 100, 250),
+    new Coin(9840, canvas.height - 270, 16, 16),
+
 
     // Finish!
-    new Block(10000, canvas.height - 300, 100, 100),
-    new Block(11000, canvas.height - 300, 100, 100),
-    new Block(12000, canvas.height - 300, 100, 100),
+    new Block(10000, canvas.height - 300, 100, 300),
+    new Block(10100, canvas.height - 300, 100, 300),
+    new FinishPole(10100, canvas.height - 400, 50, 100),
+    new Block(10200, canvas.height - 300, 100, 300),
   ];
 
   for (let i = 0; i < canvas.width * 2; i += 32) {
@@ -293,9 +300,7 @@ function updateLogic() {
         musicLevel.currentTime = 0;
         musicWon.currentTime = 0;
         musicWon.play();
-        setTimeout(() => {
-          gameState = GAME_STATE.GAME_WON;
-        }, 1000);
+        gameState = GAME_STATE.GAME_WON;
       }
 
       // Update player position
