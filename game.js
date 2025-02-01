@@ -50,8 +50,11 @@ const createLevel = () => {
     new Block(400, canvas.height - 80, 100, 80),
     new Block(500, canvas.height - 80, 100, 80),
     new Block(600, canvas.height - 80, 100, 80),
+
     new Coin(640, canvas.height - 270, 16, 16),
     new Block(700, canvas.height - 80, 100, 80),
+    new Block(800, canvas.height - 80, 100, 80),
+
     new Block(600, canvas.height - 250, 100, 50),
 
     new Block(900, canvas.height - 150, 100, 150),
@@ -59,12 +62,17 @@ const createLevel = () => {
 
     new Block(1100, canvas.height - 80, 100, 80),
     new Block(1200, canvas.height - 80, 100, 80),
+    new Block(1300, canvas.height - 80, 100, 80),
+    new Block(1400, canvas.height - 80, 100, 80),
+
     new Coin(1240, canvas.height - 100, 16, 16),
     new Block(1400, canvas.height - 150, 100, 150),
     new Coin(1440, canvas.height - 170, 16, 16),
-
+    new Block(1500, canvas.height - 80, 100, 80),
     new Block(1600, canvas.height - 200, 100, 200),
     new Coin(1640, canvas.height - 220, 16, 16),
+
+    new Block(1700, canvas.height - 80, 100, 80),
     new Block(1800, canvas.height - 300, 100, 300),
     new Coin(1840, canvas.height - 320, 16, 16),
     new Block(1900, canvas.height - 300, 100, 300),
@@ -73,15 +81,19 @@ const createLevel = () => {
     new Coin(2040, canvas.height - 320, 16, 16),
 
     new Block(2300, canvas.height - 80, 100, 80),
+    new Block(2400, canvas.height - 80, 100, 80),
+
     new Coin(2340, canvas.height - 100, 16, 16),
     new Block(2500, canvas.height - 80, 100, 80),
     new Coin(2540, canvas.height - 100, 16, 16),
+    new Block(2600, canvas.height - 80, 100, 80),
 
     new Block(2700, canvas.height - 80, 100, 80),
     new Coin(2740, canvas.height - 100, 16, 16),
     new Block(2800, canvas.height - 80, 100, 80),
     new Block(2900, canvas.height - 80, 100, 80),
     new Coin(2940, canvas.height - 100, 16, 16),
+    new Enemy(2800, canvas.height - 150),
 
     new Block(3000, canvas.height - 80, 100, 20),
     new Block(3100, canvas.height - 80, 100, 20),
@@ -93,7 +105,6 @@ const createLevel = () => {
 
     new Block(3200, canvas.height - 80, 100, 20),
     new Block(3300, canvas.height - 80, 100, 20),
-
 
     // The back and forth jumping blocks
     new Block(3300, canvas.height - 190, 100, 20),
@@ -114,27 +125,27 @@ const createLevel = () => {
     // Large distance jump followed by many coins
     new Block(4100, canvas.height - 150, 100, 150),
     new Coin(4140, canvas.height - 170, 16, 16),
-    new Coin(4150, canvas.height - 210, 16, 16),
+    new Coin(4155, canvas.height - 210, 16, 16),
 
     new Block(4200, canvas.height - 150, 100, 150),
     new Coin(4240, canvas.height - 170, 16, 16),
-    new Coin(4250, canvas.height - 210, 16, 16),
+    new Coin(4255, canvas.height - 210, 16, 16),
 
     new Block(4300, canvas.height - 150, 100, 150),
     new Coin(4340, canvas.height - 170, 16, 16),
-    new Coin(4350, canvas.height - 210, 16, 16),
+    new Coin(4355, canvas.height - 210, 16, 16),
 
     // Blocks with second enemy and treasure
     new Block(4600, canvas.height - 100, 100, 100),
-    new Coin(4600, canvas.height - 120, 16, 16),
+    new Coin(4640, canvas.height - 120, 16, 16),
     new Block(4700, canvas.height - 100, 100, 100),
     new Block(4800, canvas.height - 100, 100, 100),
-    new Coin(4800, canvas.height - 120, 16, 16),
+    new Coin(4840, canvas.height - 120, 16, 16),
     new Block(4900, canvas.height - 100, 100, 100),
     new Enemy(4800, canvas.height - 160),
 
     new Block(5000, canvas.height - 100, 100, 100),
-    new Coin(5000, canvas.height - 120, 16, 16),
+    new Coin(5040, canvas.height - 120, 16, 16),
 
     // Nessie spawns after picking up the treasure
     new Treasure(5100, canvas.height - 150, 50, 50),
@@ -145,7 +156,6 @@ const createLevel = () => {
     new Block(5300, canvas.height - 100, 100, 100),
     new Block(5400, canvas.height - 100, 100, 100),
     new Block(5500, canvas.height - 100, 100, 100),
-
 
     // Easy hopping first session with Nessie
 
@@ -158,13 +168,12 @@ const createLevel = () => {
     new Block(6400, canvas.height - 100, 100, 100),
     new Block(6500, canvas.height - 100, 100, 100),
 
-
     // Increasing height of blocks
     new Block(6700, canvas.height - 100, 100, 100),
     new Block(6800, canvas.height - 100, 100, 100),
     new Block(6900, canvas.height - 100, 100, 100),
     new Block(7000, canvas.height - 200, 100, 200),
-    new Block(7100, canvas.height -150 , 50, 150),
+    new Block(7100, canvas.height - 150, 50, 150),
     new Block(7150, canvas.height - 100, 50, 100),
     new Block(7200, canvas.height - 100, 100, 100),
     new Block(7300, canvas.height - 300, 100, 300),
@@ -173,9 +182,29 @@ const createLevel = () => {
     new Block(7500, canvas.height - 100, 100, 100),
     new Block(7600, canvas.height - 400, 100, 400),
 
-
     // Leap of faith
     new Block(8000, canvas.height - 100, 100, 100),
+    new Enemy(8050, canvas.height - 160),
+    new Block(8100, canvas.height - 100, 100, 100),
+    new Enemy(8150, canvas.height - 160),
+    new Block(8200, canvas.height - 100, 100, 100),
+    new Enemy(8250, canvas.height - 160),
+    new Block(8300, canvas.height - 100, 100, 100),
+    new Enemy(8350, canvas.height - 160),
+    new Block(8400, canvas.height - 100, 100, 100),
+    new Enemy(8450, canvas.height - 160),
+    new Block(8500, canvas.height - 100, 100, 100),
+    new Block(8600, canvas.height - 100, 100, 100),
+
+    new Block(8800, canvas.height - 100, 100, 100),
+
+    new Block(9000, canvas.height - 150, 100, 100),
+
+    new Block(1100, canvas.height - 200, 100, 100),
+
+    new Block(1300, canvas.height - 250, 100, 100),
+
+
 
   ];
 
@@ -198,9 +227,9 @@ const gameOverScreen = new GameOverScreen(canvas, ctx);
 
 // Add these at the top with other constants
 const GAME_STATE = {
-  TITLE: 'title',
-  PLAYING: 'playing',
-  GAME_OVER: 'gameOver'
+  TITLE: "title",
+  PLAYING: "playing",
+  GAME_OVER: "gameOver",
 };
 
 let gameState = GAME_STATE.TITLE;
@@ -217,19 +246,19 @@ function gameLoop(currentTime) {
   // Convert to seconds
   const deltaTime = currentTime - lastRenderTime;
   lastRenderTime = currentTime;
-  
+
   // Update logic accumulator
   logicAccumulator += deltaTime;
-  
+
   // Run as many logic updates as needed to catch up
   while (logicAccumulator >= LOGIC_TICK) {
     updateLogic();
     logicAccumulator -= LOGIC_TICK;
   }
-  
+
   // Render at whatever frame rate the browser provides
   render();
-  
+
   requestAnimationFrame(gameLoop);
 }
 
@@ -254,8 +283,10 @@ function updateLogic() {
         if (obj.update) obj.update(gameObjects, scrollOffset);
 
         // Remove dead enemies or expired explosions
-        if ((obj instanceof Enemy && obj.shouldRemove()) ||
-          (obj instanceof Explosion && !obj.isAlive())) {
+        if (
+          (obj instanceof Enemy && obj.shouldRemove()) ||
+          (obj instanceof Explosion && !obj.isAlive())
+        ) {
           gameObjects.splice(index, 1);
         }
       });
@@ -313,17 +344,17 @@ function render() {
 
       ctx.drawImage(backgroundCanvas, 0, 0);
 
-      // Draw water blocks
-      waterBlocks.forEach((water) => {
-        water.draw(ctx, performance.now());
-      });
-
       // Draw player
       player.draw(ctx);
 
       // Draw game objects
-      gameObjects.forEach(obj => {
+      gameObjects.forEach((obj) => {
         obj.draw(ctx, scrollOffset);
+      });
+
+      // Draw water blocks
+      waterBlocks.forEach((water) => {
+        water.draw(ctx, performance.now());
       });
 
       // Draw score
@@ -342,7 +373,7 @@ function startGame() {
   createLevel();
   gameState = GAME_STATE.PLAYING;
   player = new Player(canvas.width / 2 - 16, canvas.height - 150);
-  scrollOffset = 6000;
+  scrollOffset = 0;
   scrollSpeed = 0;
   backgroundScrollOffset = 0;
 
@@ -356,9 +387,9 @@ document.addEventListener("keydown", (e) => {
     startGame();
   } else if (gameState === GAME_STATE.GAME_OVER) {
     startGame();
-  } else if (e.key === 'Escape' && gameState === GAME_STATE.PLAYING) {
+  } else if (e.key === "Escape" && gameState === GAME_STATE.PLAYING) {
     gameState = GAME_STATE.PAUSED;
-  } else if (e.key === 'Escape' && gameState === GAME_STATE.PAUSED) {
+  } else if (e.key === "Escape" && gameState === GAME_STATE.PAUSED) {
     gameState = GAME_STATE.PLAYING;
   }
 
@@ -389,7 +420,7 @@ document.getElementById("right").addEventListener("touchend", () => {
 document.getElementById("buttonA").addEventListener("touchstart", () => {
   if (gameState === GAME_STATE.TITLE || gameState === GAME_STATE.GAME_OVER) {
     startGame();
-    return
+    return;
   }
   keys[" "] = true;
   soundJump.play();
