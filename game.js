@@ -242,6 +242,7 @@ const GAME_STATE = {
   TITLE: "title",
   PLAYING: "playing",
   GAME_OVER: "gameOver",
+  GAME_WON: "gameWon",
 };
 
 let gameState = GAME_STATE.TITLE;
