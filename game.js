@@ -184,26 +184,38 @@ const createLevel = () => {
 
     // Leap of faith
     new Block(8000, canvas.height - 100, 100, 100),
-    new Enemy(8050, canvas.height - 160),
     new Block(8100, canvas.height - 100, 100, 100),
-    new Enemy(8150, canvas.height - 160),
+    new Block(8100, canvas.height - 100, 100, 100),
     new Block(8200, canvas.height - 100, 100, 100),
-    new Enemy(8250, canvas.height - 160),
-    new Block(8300, canvas.height - 100, 100, 100),
-    new Enemy(8350, canvas.height - 160),
+    new Block(8300, canvas.height - 150, 100, 150),
+
+    // Enemy hurdle
     new Block(8400, canvas.height - 100, 100, 100),
     new Enemy(8450, canvas.height - 160),
     new Block(8500, canvas.height - 100, 100, 100),
+    new Enemy(8550, canvas.height - 160),
     new Block(8600, canvas.height - 100, 100, 100),
-
+    new Enemy(8650, canvas.height - 160),
+    new Block(8700, canvas.height - 100, 100, 100),
+    new Enemy(8750, canvas.height - 160),
     new Block(8800, canvas.height - 100, 100, 100),
+    new Enemy(8850, canvas.height - 160),
+    new Block(8900, canvas.height - 100, 100, 100),
+    new Block(9000, canvas.height - 100, 100, 100),
 
-    new Block(9000, canvas.height - 150, 100, 100),
+    new Block(9200, canvas.height - 100, 100, 100),
 
-    new Block(1100, canvas.height - 200, 100, 100),
+    new Block(9400, canvas.height - 150, 100, 100),
 
-    new Block(1300, canvas.height - 250, 100, 100),
+    new Block(9600, canvas.height - 200, 100, 100),
 
+    new Block(9800, canvas.height - 250, 100, 100),
+
+
+    // Finish!
+    new Block(1000, canvas.height - 300, 100, 100),
+    new Block(1100, canvas.height - 300, 100, 100),
+    new Block(1200, canvas.height - 300, 100, 100),
 
 
   ];
